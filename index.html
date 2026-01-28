@@ -66,19 +66,127 @@
             <!-- Progress Image -->
             <section id="progressImageSection">
                 <h2>التصوّر الحالي للجسم</h2>
-                <div class="body-icon" id="bodyIcon">
-                    <svg viewBox="0 0 100 150" width="200" height="280">
-                        <!-- رأس -->
-                        <circle cx="50" cy="20" r="15" fill="#00bfff" opacity="0.8"/>
-                        <!-- جسم -->
-                        <ellipse id="bodyShape" cx="50" cy="70" rx="25" ry="35" fill="#00bfff" opacity="0.6"/>
-                        <!-- ذراعين -->
-                        <line x1="25" y1="50" x2="10" y2="80" stroke="#00bfff" stroke-width="8" stroke-linecap="round"/>
-                        <line x1="75" y1="50" x2="90" y2="80" stroke="#00bfff" stroke-width="8" stroke-linecap="round"/>
-                        <!-- رجلين -->
-                        <line x1="40" y1="105" x2="35" y2="145" stroke="#00bfff" stroke-width="10" stroke-linecap="round"/>
-                        <line x1="60" y1="105" x2="65" y2="145" stroke="#00bfff" stroke-width="10" stroke-linecap="round"/>
+                <div class="body-visualization" id="bodyVisualization">
+                    <svg viewBox="0 0 200 400" width="200" height="400" id="bodySvg">
+                        <defs>
+                            <!-- Gradient for body -->
+                            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0088cc;stop-opacity:1" />
+                            </linearGradient>
+                            <!-- Glow effect -->
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        <!-- Full body silhouette - realistic human shape -->
+                        <g id="humanBody" filter="url(#glow)">
+                            <!-- Head -->
+                            <ellipse id="head" cx="100" cy="35" rx="25" ry="30" fill="url(#bodyGradient)" opacity="0.9"/>
+
+                            <!-- Neck -->
+                            <path id="neck" d="M90,60 L90,75 L110,75 L110,60" fill="url(#bodyGradient)" opacity="0.9"/>
+
+                            <!-- Torso - this will morph based on progress -->
+                            <path id="torso"
+                                  d="M70,75
+                                     C60,85 55,100 52,120
+                                     C48,145 50,170 55,190
+                                     L65,190
+                                     L75,195
+                                     L100,200
+                                     L125,195
+                                     L135,190
+                                     L145,190
+                                     C150,170 152,145 148,120
+                                     C145,100 140,85 130,75
+                                     Z"
+                                  fill="url(#bodyGradient)" opacity="0.85"/>
+
+                            <!-- Chest definition (appears with progress) -->
+                            <path id="chestMuscle"
+                                  d="M78,90 C85,85 95,83 100,83 C105,83 115,85 122,90
+                                     C125,100 123,110 115,115
+                                     C108,118 100,120 100,120
+                                     C100,120 92,118 85,115
+                                     C77,110 75,100 78,90"
+                                  fill="none" stroke="#00ffff" stroke-width="1" opacity="0"/>
+
+                            <!-- Abs lines (appear with progress) -->
+                            <g id="absGroup" opacity="0">
+                                <line x1="100" y1="120" x2="100" y2="185" stroke="#00ffff" stroke-width="1"/>
+                                <path d="M85,130 Q100,128 115,130" fill="none" stroke="#00ffff" stroke-width="1"/>
+                                <path d="M85,148 Q100,146 115,148" fill="none" stroke="#00ffff" stroke-width="1"/>
+                                <path d="M87,166 Q100,164 113,166" fill="none" stroke="#00ffff" stroke-width="1"/>
+                            </g>
+
+                            <!-- Left Arm -->
+                            <path id="leftArm"
+                                  d="M70,78
+                                     C55,82 45,95 40,115
+                                     C35,135 33,155 35,175
+                                     L45,178
+                                     C48,160 50,140 52,120
+                                     C55,105 60,92 68,85
+                                     Z"
+                                  fill="url(#bodyGradient)" opacity="0.85"/>
+
+                            <!-- Right Arm -->
+                            <path id="rightArm"
+                                  d="M130,78
+                                     C145,82 155,95 160,115
+                                     C165,135 167,155 165,175
+                                     L155,178
+                                     C152,160 150,140 148,120
+                                     C145,105 140,92 132,85
+                                     Z"
+                                  fill="url(#bodyGradient)" opacity="0.85"/>
+
+                            <!-- Left Hand -->
+                            <ellipse id="leftHand" cx="40" cy="182" rx="8" ry="12" fill="url(#bodyGradient)" opacity="0.9"/>
+
+                            <!-- Right Hand -->
+                            <ellipse id="rightHand" cx="160" cy="182" rx="8" ry="12" fill="url(#bodyGradient)" opacity="0.9"/>
+
+                            <!-- Left Leg -->
+                            <path id="leftLeg"
+                                  d="M75,195
+                                     C68,220 65,260 63,300
+                                     C62,330 60,360 58,385
+                                     L78,388
+                                     C80,365 82,335 83,305
+                                     C85,265 88,225 95,200
+                                     Z"
+                                  fill="url(#bodyGradient)" opacity="0.85"/>
+
+                            <!-- Right Leg -->
+                            <path id="rightLeg"
+                                  d="M125,195
+                                     C132,220 135,260 137,300
+                                     C138,330 140,360 142,385
+                                     L122,388
+                                     C120,365 118,335 117,305
+                                     C115,265 112,225 105,200
+                                     Z"
+                                  fill="url(#bodyGradient)" opacity="0.85"/>
+
+                            <!-- Left Foot -->
+                            <ellipse id="leftFoot" cx="68" cy="392" rx="15" ry="6" fill="url(#bodyGradient)" opacity="0.9"/>
+
+                            <!-- Right Foot -->
+                            <ellipse id="rightFoot" cx="132" cy="392" rx="15" ry="6" fill="url(#bodyGradient)" opacity="0.9"/>
+                        </g>
                     </svg>
+
+                    <!-- Progress Stage Indicator -->
+                    <div class="stage-indicator">
+                        <span id="stageText">البداية</span>
+                    </div>
                 </div>
                 <div id="progressBarContainer">
                     <div id="progressBar"></div>

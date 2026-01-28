@@ -371,30 +371,119 @@ function updateProgressImage() {
     }
 
     const ratio = completed / daysCount;
-    const bodyShape = document.getElementById('bodyShape');
+    const bodyVisualization = document.getElementById('bodyVisualization');
+    const stageText = document.getElementById('stageText');
 
-    if (bodyShape) {
-        // Animate body shape based on progress
-        // Start: rx=25, ry=35 (wider)
-        // End: rx=18, ry=30 (slimmer)
-        const startRx = 25, endRx = 18;
-        const startRy = 35, endRy = 30;
-
-        const currentRx = startRx - (ratio * (startRx - endRx));
-        const currentRy = startRy - (ratio * (startRy - endRy));
-
-        bodyShape.setAttribute('rx', currentRx);
-        bodyShape.setAttribute('ry', currentRy);
-
-        // Change color based on progress
-        if (ratio >= 0.83) {
-            bodyShape.setAttribute('fill', '#00ff88');
-        } else if (ratio >= 0.5) {
-            bodyShape.setAttribute('fill', '#00bfff');
+    if (bodyVisualization) {
+        // Remove all stage classes
+        for (let i = 0; i <= 5; i++) {
+            bodyVisualization.classList.remove('stage-' + i);
         }
+
+        // Determine stage based on progress (0-5)
+        let stage = Math.floor(ratio * 6);
+        if (stage > 5) stage = 5;
+
+        // Add current stage class
+        bodyVisualization.classList.add('stage-' + stage);
+
+        // Update stage text
+        const stageNames = [
+            'البداية',
+            'أسبوع واحد',
+            'تقدم ملحوظ',
+            'نتائج جيدة',
+            'جسم رشيق',
+            'جسم رياضي'
+        ];
+
+        if (stageText) {
+            stageText.textContent = stageNames[stage];
+        }
+
+        // Add animation class temporarily
+        bodyVisualization.classList.add('animating');
+        setTimeout(() => {
+            bodyVisualization.classList.remove('animating');
+        }, 2000);
+
+        // Update gradient colors based on progress
+        updateBodyGradient(ratio);
+
+        // Update muscle definition visibility
+        updateMuscleDefinition(ratio);
     }
 
     updateProgressBar(ratio, completed, daysCount);
+}
+
+/**
+ * تحديث ألوان الجسم بناءً على التقدم
+ */
+function updateBodyGradient(ratio) {
+    const gradient = document.getElementById('bodyGradient');
+    if (!gradient) return;
+
+    const stops = gradient.querySelectorAll('stop');
+    if (stops.length < 2) return;
+
+    // Color transitions based on progress
+    if (ratio >= 0.83) {
+        // Athletic - Green glow
+        stops[0].style.stopColor = '#00ff88';
+        stops[1].style.stopColor = '#00cc6a';
+    } else if (ratio >= 0.66) {
+        // Fit - Cyan-Green
+        stops[0].style.stopColor = '#00ffaa';
+        stops[1].style.stopColor = '#00aacc';
+    } else if (ratio >= 0.5) {
+        // Good progress - Bright cyan
+        stops[0].style.stopColor = '#00e5ff';
+        stops[1].style.stopColor = '#0099cc';
+    } else if (ratio >= 0.33) {
+        // Some progress - Cyan
+        stops[0].style.stopColor = '#00d4ff';
+        stops[1].style.stopColor = '#0088cc';
+    } else {
+        // Starting - Default blue
+        stops[0].style.stopColor = '#00bfff';
+        stops[1].style.stopColor = '#0077aa';
+    }
+}
+
+/**
+ * تحديث وضوح تفاصيل العضلات
+ */
+function updateMuscleDefinition(ratio) {
+    const chestMuscle = document.getElementById('chestMuscle');
+    const absGroup = document.getElementById('absGroup');
+
+    if (chestMuscle) {
+        // Chest definition appears after 50% progress
+        if (ratio >= 0.83) {
+            chestMuscle.style.opacity = '0.7';
+            chestMuscle.style.strokeWidth = '1.5';
+        } else if (ratio >= 0.66) {
+            chestMuscle.style.opacity = '0.5';
+            chestMuscle.style.strokeWidth = '1';
+        } else if (ratio >= 0.5) {
+            chestMuscle.style.opacity = '0.3';
+            chestMuscle.style.strokeWidth = '0.8';
+        } else {
+            chestMuscle.style.opacity = '0';
+        }
+    }
+
+    if (absGroup) {
+        // Abs appear after 66% progress
+        if (ratio >= 0.83) {
+            absGroup.style.opacity = '0.8';
+        } else if (ratio >= 0.66) {
+            absGroup.style.opacity = '0.5';
+        } else {
+            absGroup.style.opacity = '0';
+        }
+    }
 }
 
 function updateProgressBar(ratio, completed, total) {

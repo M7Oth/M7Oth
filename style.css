@@ -136,13 +136,139 @@ button:hover {
     text-align: center;
 }
 
-.body-icon {
-    margin: 15px auto;
+.body-visualization {
+    margin: 20px auto;
+    position: relative;
+    display: inline-block;
 }
 
-.body-icon svg {
-    filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.3));
-    transition: all 0.5s ease;
+#bodySvg {
+    filter: drop-shadow(0 0 15px rgba(0, 191, 255, 0.4));
+    transition: all 0.8s ease;
+}
+
+#bodySvg path,
+#bodySvg ellipse {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Body transformation stages */
+.body-visualization.stage-0 #torso {
+    d: path("M70,75 C55,88 48,110 45,135 C42,160 45,180 50,195 L65,195 L75,200 L100,205 L125,200 L135,195 L150,195 C155,180 158,160 155,135 C152,110 145,88 130,75 Z");
+}
+
+.body-visualization.stage-1 #torso {
+    d: path("M70,75 C58,86 52,105 50,128 C47,152 48,175 53,192 L65,192 L75,197 L100,202 L125,197 L135,192 L147,192 C152,175 153,152 150,128 C148,105 142,86 130,75 Z");
+}
+
+.body-visualization.stage-2 #torso {
+    d: path("M72,75 C62,84 56,100 54,120 C51,145 52,170 56,190 L66,190 L76,195 L100,200 L124,195 L134,190 L144,190 C148,170 149,145 146,120 C144,100 138,84 128,75 Z");
+}
+
+.body-visualization.stage-3 #torso {
+    d: path("M75,75 C66,82 60,96 58,115 C55,138 56,162 60,188 L68,188 L78,193 L100,198 L122,193 L132,188 L140,188 C144,162 145,138 142,115 C140,96 134,82 125,75 Z");
+}
+
+/* Fit/Athletic body */
+.body-visualization.stage-4 #torso {
+    d: path("M78,75 C70,80 65,92 63,110 C60,132 61,156 64,185 L72,185 L82,190 L100,195 L118,190 L128,185 L136,185 C139,156 140,132 137,110 C135,92 130,80 122,75 Z");
+}
+
+.body-visualization.stage-5 #torso {
+    d: path("M80,75 C73,78 68,88 66,105 C63,125 64,150 67,182 L75,182 L85,187 L100,192 L115,187 L125,182 L133,182 C136,150 137,125 134,105 C132,88 127,78 120,75 Z");
+}
+
+/* Muscle definition visibility */
+.body-visualization.stage-3 #chestMuscle,
+.body-visualization.stage-4 #chestMuscle,
+.body-visualization.stage-5 #chestMuscle {
+    opacity: 0.4;
+}
+
+.body-visualization.stage-4 #absGroup,
+.body-visualization.stage-5 #absGroup {
+    opacity: 0.5;
+}
+
+.body-visualization.stage-5 #chestMuscle {
+    opacity: 0.6;
+}
+
+.body-visualization.stage-5 #absGroup {
+    opacity: 0.7;
+}
+
+/* Arm transformations */
+.body-visualization.stage-0 #leftArm {
+    d: path("M70,78 C52,84 40,100 34,125 C28,150 26,170 28,185 L42,188 C45,172 48,150 52,125 C56,105 62,90 68,82 Z");
+}
+
+.body-visualization.stage-0 #rightArm {
+    d: path("M130,78 C148,84 160,100 166,125 C172,150 174,170 172,185 L158,188 C155,172 152,150 148,125 C144,105 138,90 132,82 Z");
+}
+
+.body-visualization.stage-5 #leftArm {
+    d: path("M78,78 C60,82 50,94 46,112 C42,130 41,150 42,168 L52,170 C53,154 55,136 58,118 C61,102 66,90 72,84 Z");
+}
+
+.body-visualization.stage-5 #rightArm {
+    d: path("M122,78 C140,82 150,94 154,112 C158,130 159,150 158,168 L148,170 C147,154 145,136 142,118 C139,102 134,90 128,84 Z");
+}
+
+/* Leg transformations */
+.body-visualization.stage-0 #leftLeg {
+    d: path("M72,200 C62,230 58,275 55,320 C53,355 50,375 48,390 L72,393 C74,378 77,358 79,323 C82,278 86,233 95,203 Z");
+}
+
+.body-visualization.stage-0 #rightLeg {
+    d: path("M128,200 C138,230 142,275 145,320 C147,355 150,375 152,390 L128,393 C126,378 123,358 121,323 C118,278 114,233 105,203 Z");
+}
+
+.body-visualization.stage-5 #leftLeg {
+    d: path("M78,192 C70,218 68,255 66,295 C65,328 64,358 62,382 L80,385 C81,362 83,332 84,298 C86,258 88,222 94,195 Z");
+}
+
+.body-visualization.stage-5 #rightLeg {
+    d: path("M122,192 C130,218 132,255 134,295 C135,328 136,358 138,382 L120,385 C119,362 117,332 116,298 C114,258 112,222 106,195 Z");
+}
+
+/* Color changes with progress */
+.body-visualization.stage-3 #bodyGradient stop:first-child {
+    stop-color: #00e5ff;
+}
+
+.body-visualization.stage-4 #bodyGradient stop:first-child {
+    stop-color: #00ff9d;
+}
+
+.body-visualization.stage-5 #bodyGradient stop:first-child {
+    stop-color: #00ff88;
+}
+
+/* Stage indicator */
+.stage-indicator {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #1a2e46, #243f5e);
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #00bfff;
+}
+
+.stage-indicator span {
+    color: #00bfff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Pulse animation for active progress */
+@keyframes bodyPulse {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 191, 255, 0.4)); }
+    50% { filter: drop-shadow(0 0 25px rgba(0, 255, 136, 0.6)); }
+}
+
+.body-visualization.animating #bodySvg {
+    animation: bodyPulse 2s ease-in-out infinite;
 }
 
 /* Progress Bar */

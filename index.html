@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تطبيق تتبع اللياقة البدنية والتمارين الأسبوعية">
+    <meta name="theme-color" content="#1a1a2e">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>متتبع اللياقة | Fitness Tracker</title>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts - Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="pulse-ring"></div>
+            <span class="loader-icon">💪</span>
+        </div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- الشاشة الرئيسية -->
+    <div id="app" class="app hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🏋️</span>
+                    <h1>متتبع اللياقة</h1>
+                </div>
+                <div class="streak-badge" id="streak-badge" title="أيام متتالية">
+                    <span class="streak-fire">🔥</span>
+                    <span class="streak-count" id="streak-count">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- قسم بيانات المستخدم -->
+            <section id="user-section" class="card user-card">
+                <div class="card-header">
+                    <h2>📊 بياناتك الشخصية</h2>
+                    <button class="btn-icon" id="edit-user-btn" title="تعديل">
+                        <span>✏️</span>
+                    </button>
+                </div>
+
+                <!-- نموذج إدخال البيانات -->
+                <form id="user-form" class="user-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">الوزن (كجم)</label>
+                            <input type="number" id="weight" name="weight" min="30" max="300" step="0.1" required placeholder="70">
+                        </div>
+                        <div class="form-group">
+                            <label for="height">الطول (سم)</label>
+                            <input type="number" id="height" name="height" min="100" max="250" required placeholder="170">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">العمر</label>
+                            <input type="number" id="age" name="age" min="10" max="100" required placeholder="25">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">الجنس</label>
+                            <select id="gender" name="gender" required>
+                                <option value="male">ذكر</option>
+                                <option value="female">أنثى</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal">الهدف</label>
+                            <select id="goal" name="goal" required>
+                                <option value="lose">خسارة الوزن</option>
+                                <option value="maintain">الحفاظ على الوزن</option>
+                                <option value="gain">زيادة العضلات</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span>💾</span> حفظ البيانات
+                    </button>
+                </form>
+
+                <!-- عرض البيانات المحفوظة -->
+                <div id="user-display" class="user-display hidden">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-icon">⚖️</span>
+                            <span class="stat-value" id="display-weight">--</span>
+                            <span class="stat-label">الوزن (كجم)</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📏</span>
+                            <span class="stat-value" id="display-height">--</span>
+                            <span class="stat-label">الطول (سم)</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🎂</span>
+                            <span class="stat-value" id="display-age">--</span>
+                            <span class="stat-label">العمر</span>
+                        </div>
+                        <div class="stat-item highlight">
+                            <span class="stat-icon">📐</span>
+                            <span class="stat-value" id="display-bmi">--</span>
+                            <span class="stat-label">مؤشر BMI</span>
+                        </div>
+                    </div>
+                    <div class="bmi-indicator">
+                        <div class="bmi-bar">
+                            <div class="bmi-marker" id="bmi-marker"></div>
+                        </div>
+                        <div class="bmi-labels">
+                            <span>نحيف</span>
+                            <span>طبيعي</span>
+                            <span>زائد</span>
+                            <span>سمنة</span>
+                        </div>
+                    </div>
+                    <p class="bmi-status" id="bmi-status"></p>
+                </div>
+            </section>
+
+            <!-- قسم تصور الجسم -->
+            <section id="body-section" class="card body-card hidden">
+                <div class="card-header">
+                    <h2>🎯 رحلة تطورك</h2>
+                </div>
+                <div class="body-visualization">
+                    <div class="body-stages">
+                        <div class="stage" data-stage="1">
+                            <div class="stage-icon">
+                                <svg viewBox="0 0 100 160" class="body-svg stage-1">
+                                    <!-- جسم مع دهون -->
+                                    <ellipse cx="50" cy="35" rx="20" ry="22" fill="currentColor"/>
+                                    <ellipse cx="50" cy="85" rx="30" ry="35" fill="currentColor"/>
+                                    <rect x="25" y="120" width="15" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="60" y="120" width="15" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="15" y="55" width="12" height="40" rx="5" fill="currentColor"/>
+                                    <rect x="73" y="55" width="12" height="40" rx="5" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="stage-label">البداية</span>
+                        </div>
+
+                        <div class="progress-line">
+                            <div class="progress-fill" id="body-progress"></div>
+                        </div>
+
+                        <div class="stage" data-stage="2">
+                            <div class="stage-icon">
+                                <svg viewBox="0 0 100 160" class="body-svg stage-2">
+                                    <!-- جسم متوسط -->
+                                    <ellipse cx="50" cy="35" rx="18" ry="20" fill="currentColor"/>
+                                    <ellipse cx="50" cy="85" rx="25" ry="32" fill="currentColor"/>
+                                    <rect x="27" y="120" width="14" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="59" y="120" width="14" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="18" y="55" width="11" height="38" rx="5" fill="currentColor"/>
+                                    <rect x="71" y="55" width="11" height="38" rx="5" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="stage-label">تقدم</span>
+                        </div>
+
+                        <div class="progress-line">
+                            <div class="progress-fill" id="body-progress-2"></div>
+                        </div>
+
+                        <div class="stage" data-stage="3">
+                            <div class="stage-icon">
+                                <svg viewBox="0 0 100 160" class="body-svg stage-3">
+                                    <!-- جسم رياضي -->
+                                    <ellipse cx="50" cy="33" rx="16" ry="18" fill="currentColor"/>
+                                    <path d="M30 55 Q50 50 70 55 L68 95 Q50 100 32 95 Z" fill="currentColor"/>
+                                    <ellipse cx="50" cy="85" rx="20" ry="15" fill="currentColor"/>
+                                    <rect x="30" y="120" width="13" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="57" y="120" width="13" height="35" rx="5" fill="currentColor"/>
+                                    <rect x="15" y="52" width="13" height="42" rx="5" fill="currentColor"/>
+                                    <rect x="72" y="52" width="13" height="42" rx="5" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="stage-label">الهدف</span>
+                        </div>
+                    </div>
+
+                    <div class="current-stage-info">
+                        <p id="stage-message">ابدأ رحلتك اليوم!</p>
+                        <div class="stage-stats">
+                            <span><strong id="completed-weeks">0</strong> أسبوع مكتمل</span>
+                            <span><strong id="total-calories">0</strong> سعرة محروقة</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم الأسبوع الحالي -->
+            <section id="week-section" class="card week-card hidden">
+                <div class="card-header">
+                    <h2>📅 الأسبوع الحالي</h2>
+                    <div class="week-info">
+                        <span id="week-number">الأسبوع 1</span>
+                        <span class="week-dates" id="week-dates"></span>
+                    </div>
+                </div>
+
+                <!-- ملخص الأسبوع -->
+                <div class="week-summary">
+                    <div class="summary-item">
+                        <span class="summary-icon">✅</span>
+                        <span class="summary-value" id="days-completed">0/6</span>
+                        <span class="summary-label">أيام مكتملة</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-icon">🔥</span>
+                        <span class="summary-value" id="week-calories">0</span>
+                        <span class="summary-label">سعرة هذا الأسبوع</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-icon">⚡</span>
+                        <span class="summary-value" id="week-progress">0%</span>
+                        <span class="summary-label">نسبة الإنجاز</span>
+                    </div>
+                </div>
+
+                <!-- شريط تقدم الأسبوع -->
+                <div class="week-progress-bar">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="week-progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- جدول التمارين -->
+                <div class="exercises-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اليوم</th>
+                                <th>التمرين</th>
+                                <th>السعرات</th>
+                                <th>الفيديو</th>
+                                <th>إنجاز</th>
+                            </tr>
+                        </thead>
+                        <tbody id="exercises-tbody">
+                            <!-- سيتم ملؤها ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- رسالة إكمال الأسبوع -->
+                <div id="week-complete-prompt" class="week-complete-prompt hidden">
+                    <div class="prompt-content">
+                        <span class="prompt-icon">🎉</span>
+                        <h3>أحسنت! أكملت جميع تمارين الأسبوع</h3>
+                        <p>قِس وزنك الحالي وسجله لحفظ تقدمك</p>
+                        <div class="prompt-form">
+                            <input type="number" id="end-week-weight" placeholder="الوزن الحالي (كجم)" step="0.1" min="30" max="300">
+                            <button class="btn btn-success" id="save-week-btn">
+                                <span>💾</span> حفظ وبدء أسبوع جديد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم سجل الوزن -->
+            <section id="weight-log-section" class="card hidden">
+                <div class="card-header">
+                    <h2>📈 سجل الوزن</h2>
+                    <button class="btn btn-sm" id="add-weight-btn">
+                        <span>➕</span> إضافة وزن
+                    </button>
+                </div>
+
+                <!-- نموذج إضافة وزن -->
+                <div id="weight-form-container" class="weight-form-container hidden">
+                    <form id="weight-form" class="weight-form">
+                        <input type="number" id="new-weight" placeholder="الوزن (كجم)" step="0.1" min="30" max="300" required>
+                        <input type="date" id="weight-date">
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                        <button type="button" class="btn btn-secondary" id="cancel-weight-btn">إلغاء</button>
+                    </form>
+                </div>
+
+                <!-- رسم بياني للوزن -->
+                <div class="chart-container">
+                    <canvas id="weight-chart"></canvas>
+                </div>
+
+                <!-- جدول سجل الوزن -->
+                <div class="weight-log-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>الوزن</th>
+                                <th>التغيير</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weight-log-tbody">
+                            <!-- سيتم ملؤها ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- قسم الإحصائيات والرسوم البيانية -->
+            <section id="stats-section" class="card hidden">
+                <div class="card-header">
+                    <h2>📊 الإحصائيات</h2>
+                </div>
+
+                <div class="charts-grid">
+                    <!-- رسم السعرات الأسبوعية -->
+                    <div class="chart-card">
+                        <h3>🔥 السعرات الأسبوعية</h3>
+                        <div class="chart-container">
+                            <canvas id="calories-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- رسم التقدم -->
+                    <div class="chart-card">
+                        <h3>📈 معدل الإنجاز</h3>
+                        <div class="chart-container">
+                            <canvas id="progress-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إحصائيات عامة -->
+                <div class="overall-stats">
+                    <div class="stat-card">
+                        <span class="stat-big-icon">🏆</span>
+                        <span class="stat-big-value" id="total-weeks">0</span>
+                        <span class="stat-big-label">أسبوع مكتمل</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-big-icon">💪</span>
+                        <span class="stat-big-value" id="total-workouts">0</span>
+                        <span class="stat-big-label">تمرين منجز</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-big-icon">🔥</span>
+                        <span class="stat-big-value" id="all-time-calories">0</span>
+                        <span class="stat-big-label">سعرة محروقة</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-big-icon">📉</span>
+                        <span class="stat-big-value" id="weight-lost">0</span>
+                        <span class="stat-big-label">كجم فرق الوزن</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم سجل الأسابيع -->
+            <section id="weeks-log-section" class="card hidden">
+                <div class="card-header">
+                    <h2>📚 سجل الأسابيع</h2>
+                </div>
+
+                <div class="weeks-log-list" id="weeks-log-list">
+                    <!-- سيتم ملؤها ديناميكياً -->
+                </div>
+            </section>
+
+            <!-- قسم الشارات والإنجازات -->
+            <section id="badges-section" class="card hidden">
+                <div class="card-header">
+                    <h2>🏅 الإنجازات والشارات</h2>
+                </div>
+
+                <div class="badges-grid" id="badges-grid">
+                    <!-- سيتم ملؤها ديناميكياً -->
+                </div>
+
+                <div class="level-progress">
+                    <h3>المستوى الحالي</h3>
+                    <div class="level-display">
+                        <span class="level-icon" id="level-icon">🌱</span>
+                        <span class="level-name" id="level-name">مبتدئ</span>
+                    </div>
+                    <div class="level-bar">
+                        <div class="level-fill" id="level-fill"></div>
+                    </div>
+                    <p class="level-info" id="level-info">أكمل 1 أسبوع للترقية</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>صُنع بـ ❤️ لمساعدتك على تحقيق أهدافك</p>
+            <p class="version">الإصدار 1.0.0</p>
+        </footer>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- Modal للإنجازات -->
+        <div id="achievement-modal" class="modal hidden">
+            <div class="modal-content achievement-modal">
+                <div class="achievement-animation">
+                    <span class="achievement-icon" id="achievement-icon">🏆</span>
+                </div>
+                <h2 id="achievement-title">إنجاز جديد!</h2>
+                <p id="achievement-description"></p>
+                <button class="btn btn-primary" id="close-achievement">رائع!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/badges.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="40" fill="#1a1a2e"/>
+  <circle cx="96" cy="96" r="70" fill="none" stroke="url(#grad)" stroke-width="8"/>
+  <path d="M60 96 L80 96 L90 70 L102 122 L112 96 L132 96"
+        fill="none"
+        stroke="#00d9a5"
+        stroke-width="6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <circle cx="96" cy="50" r="8" fill="#e94560"/>
+  <text x="96" y="160" text-anchor="middle" fill="#fff" font-family="Arial" font-size="20" font-weight="bold">FIT</text>
+</svg>

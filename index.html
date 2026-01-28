@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع متابعة اللياقة البدنية</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>موقع متابعة اللياقة البدنية</h1>
+    </header>
+
+    <main>
+        <!-- معلومات المستخدم وصورة التقدم -->
+        <div class="info-progress-grid">
+            <!-- User Information Form -->
+            <section id="userInfoSection">
+                <h2>المعلومات الشخصية</h2>
+                <form id="userInfoForm">
+                    <div class="field-group">
+                        <label for="weightInput">الوزن الحالي (كجم):</label>
+                        <input type="number" step="0.1" id="weightInput" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="heightInput">الطول (سم):</label>
+                        <input type="number" step="0.1" id="heightInput" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="ageInput">العمر:</label>
+                        <input type="number" id="ageInput" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="genderInput">الجنس:</label>
+                        <select id="genderInput" required>
+                            <option value="">اختر...</option>
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="activityInput">مستوى النشاط:</label>
+                        <select id="activityInput" required>
+                            <option value="">اختر...</option>
+                            <option value="1.2">قليل الحركة (مكتبي)</option>
+                            <option value="1.375">نشاط خفيف (1-3 أيام/أسبوع)</option>
+                            <option value="1.55">نشاط متوسط (3-5 أيام/أسبوع)</option>
+                            <option value="1.725">نشاط عالي (6-7 أيام/أسبوع)</option>
+                            <option value="1.9">نشاط مكثف جداً</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="goalInput">هدفك:</label>
+                        <select id="goalInput" required>
+                            <option value="">اختر...</option>
+                            <option value="lose">خسارة وزن</option>
+                            <option value="maintain">ثبات الوزن</option>
+                            <option value="gain">زيادة وزن/عضلات</option>
+                        </select>
+                    </div>
+                    <button type="submit">حفظ البيانات وحساب السعرات</button>
+                </form>
+                <div id="userInfoDisplay" class="user-display"></div>
+            </section>
+
+            <!-- Progress Image -->
+            <section id="progressImageSection">
+                <h2>التصوّر الحالي للجسم</h2>
+                <div class="body-icon" id="bodyIcon">
+                    <svg viewBox="0 0 100 150" width="200" height="280">
+                        <!-- رأس -->
+                        <circle cx="50" cy="20" r="15" fill="#00bfff" opacity="0.8"/>
+                        <!-- جسم -->
+                        <ellipse id="bodyShape" cx="50" cy="70" rx="25" ry="35" fill="#00bfff" opacity="0.6"/>
+                        <!-- ذراعين -->
+                        <line x1="25" y1="50" x2="10" y2="80" stroke="#00bfff" stroke-width="8" stroke-linecap="round"/>
+                        <line x1="75" y1="50" x2="90" y2="80" stroke="#00bfff" stroke-width="8" stroke-linecap="round"/>
+                        <!-- رجلين -->
+                        <line x1="40" y1="105" x2="35" y2="145" stroke="#00bfff" stroke-width="10" stroke-linecap="round"/>
+                        <line x1="60" y1="105" x2="65" y2="145" stroke="#00bfff" stroke-width="10" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div id="progressBarContainer">
+                    <div id="progressBar"></div>
+                </div>
+                <div id="progressLabel" class="progress-label"></div>
+            </section>
+        </div>
+
+        <!-- حاسبة السعرات الحرارية اليومية -->
+        <section id="calorieCalculatorSection">
+            <h2>حاسبة السعرات الحرارية اليومية</h2>
+            <p class="explanation">بناءً على معلوماتك الشخصية، هذه هي احتياجاتك اليومية من السعرات الحرارية:</p>
+
+            <div id="calorieResults" class="calorie-results hidden">
+                <div class="calorie-card">
+                    <div class="calorie-label">معدل الأيض الأساسي (BMR)</div>
+                    <div class="calorie-value"><span id="bmrValue">--</span> سعرة</div>
+                    <div class="calorie-desc">السعرات التي يحرقها جسمك في الراحة</div>
+                </div>
+                <div class="calorie-card">
+                    <div class="calorie-label">إجمالي السعرات اليومية (TDEE)</div>
+                    <div class="calorie-value"><span id="tdeeValue">--</span> سعرة</div>
+                    <div class="calorie-desc">السعرات التي تحتاجها للحفاظ على وزنك</div>
+                </div>
+                <div class="calorie-card highlight">
+                    <div class="calorie-label">السعرات المستهدفة</div>
+                    <div class="calorie-value"><span id="targetCalories">--</span> سعرة</div>
+                    <div class="calorie-desc" id="targetDesc">حسب هدفك</div>
+                </div>
+            </div>
+
+            <div id="macroResults" class="macro-results hidden">
+                <h3>توزيع المغذيات اليومية المقترح:</h3>
+                <div class="macro-grid">
+                    <div class="macro-item protein">
+                        <div class="macro-icon">🥩</div>
+                        <div class="macro-name">بروتين</div>
+                        <div class="macro-value"><span id="proteinGrams">--</span> جرام</div>
+                        <div class="macro-calories"><span id="proteinCal">--</span> سعرة</div>
+                    </div>
+                    <div class="macro-item carbs">
+                        <div class="macro-icon">🍚</div>
+                        <div class="macro-name">كربوهيدرات</div>
+                        <div class="macro-value"><span id="carbsGrams">--</span> جرام</div>
+                        <div class="macro-calories"><span id="carbsCal">--</span> سعرة</div>
+                    </div>
+                    <div class="macro-item fats">
+                        <div class="macro-icon">🥑</div>
+                        <div class="macro-name">دهون</div>
+                        <div class="macro-value"><span id="fatsGrams">--</span> جرام</div>
+                        <div class="macro-calories"><span id="fatsCal">--</span> سعرة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bmiDisplay" class="bmi-display hidden">
+                <h3>مؤشر كتلة الجسم (BMI)</h3>
+                <div class="bmi-value"><span id="bmiValue">--</span></div>
+                <div class="bmi-category" id="bmiCategory">--</div>
+                <div class="bmi-bar-container">
+                    <div class="bmi-bar">
+                        <div class="bmi-zone underweight"></div>
+                        <div class="bmi-zone normal"></div>
+                        <div class="bmi-zone overweight"></div>
+                        <div class="bmi-zone obese"></div>
+                    </div>
+                    <div class="bmi-indicator" id="bmiIndicator"></div>
+                </div>
+                <div class="bmi-labels">
+                    <span>نحيف</span>
+                    <span>طبيعي</span>
+                    <span>زيادة وزن</span>
+                    <span>سمنة</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم النظام الغذائي -->
+        <section id="dietSection">
+            <h2>النظام الغذائي والتغذية</h2>
+
+            <div class="diet-tabs">
+                <button class="tab-btn active" data-tab="allowed">الأطعمة المسموحة</button>
+                <button class="tab-btn" data-tab="limited">الأطعمة المحدودة</button>
+                <button class="tab-btn" data-tab="avoid">الأطعمة الممنوعة</button>
+                <button class="tab-btn" data-tab="sugar">السكريات والحلويات</button>
+            </div>
+
+            <div class="tab-content active" id="allowed">
+                <h3>الأطعمة المسموحة (تناولها بحرية)</h3>
+                <div class="food-grid">
+                    <div class="food-category">
+                        <h4>🥩 البروتينات</h4>
+                        <ul>
+                            <li>صدر دجاج مشوي أو مسلوق</li>
+                            <li>سمك مشوي (سلمون، تونة طازجة)</li>
+                            <li>بيض (2-4 بيضات يومياً)</li>
+                            <li>تونة معلبة (بالماء)</li>
+                            <li>لحم بقري خالي الدهن</li>
+                            <li>الروبيان والمأكولات البحرية</li>
+                            <li>الزبادي اليوناني (بدون سكر)</li>
+                            <li>الجبن القريش</li>
+                        </ul>
+                    </div>
+                    <div class="food-category">
+                        <h4>🥬 الخضروات</h4>
+                        <ul>
+                            <li>جميع الخضروات الورقية (خس، سبانخ، جرجير)</li>
+                            <li>الخيار والطماطم</li>
+                            <li>البروكلي والقرنبيط</li>
+                            <li>الفلفل بألوانه</li>
+                            <li>الكوسا والباذنجان</li>
+                            <li>الفاصوليا الخضراء</li>
+                            <li>البصل والثوم</li>
+                            <li>الفطر (المشروم)</li>
+                        </ul>
+                    </div>
+                    <div class="food-category">
+                        <h4>🍚 الكربوهيدرات الصحية</h4>
+                        <ul>
+                            <li>الأرز البني أو الأبيض (بكميات معتدلة)</li>
+                            <li>الشوفان</li>
+                            <li>البطاطس المسلوقة أو المشوية</li>
+                            <li>البطاطا الحلوة</li>
+                            <li>الخبز الأسمر (قطعة واحدة)</li>
+                            <li>الكينوا</li>
+                            <li>البرغل</li>
+                        </ul>
+                    </div>
+                    <div class="food-category">
+                        <h4>🥑 الدهون الصحية</h4>
+                        <ul>
+                            <li>زيت الزيتون</li>
+                            <li>الأفوكادو</li>
+                            <li>المكسرات النيئة (لوز، جوز) - حفنة صغيرة</li>
+                            <li>بذور الشيا والكتان</li>
+                            <li>زبدة الفول السوداني الطبيعية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="limited">
+                <h3>الأطعمة المحدودة (تناولها باعتدال)</h3>
+                <div class="food-grid">
+                    <div class="food-category warning">
+                        <h4>🍞 النشويات</h4>
+                        <ul>
+                            <li>الخبز الأبيض - قطعة واحدة فقط</li>
+                            <li>المعكرونة - مرة أسبوعياً</li>
+                            <li>الأرز الأبيض - كوب واحد</li>
+                        </ul>
+                    </div>
+                    <div class="food-category warning">
+                        <h4>🍌 الفواكه</h4>
+                        <ul>
+                            <li>الموز - حبة واحدة يومياً</li>
+                            <li>التمر - 2-3 حبات فقط</li>
+                            <li>العنب - كمية صغيرة</li>
+                            <li>المانجو - نصف حبة</li>
+                            <li>الفواكه المجففة - قليل جداً</li>
+                        </ul>
+                        <p class="note">الفواكه المسموحة بكميات أكبر: التفاح، البرتقال، الفراولة، التوت</p>
+                    </div>
+                    <div class="food-category warning">
+                        <h4>🧀 منتجات الألبان</h4>
+                        <ul>
+                            <li>الحليب كامل الدسم - كوب واحد</li>
+                            <li>الجبن الأصفر - شريحة واحدة</li>
+                            <li>اللبنة - ملعقتان</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="avoid">
+                <h3>الأطعمة الممنوعة (تجنبها تماماً)</h3>
+                <div class="food-grid">
+                    <div class="food-category danger">
+                        <h4>🍟 المقليات</h4>
+                        <ul>
+                            <li>البطاطس المقلية</li>
+                            <li>الدجاج المقلي</li>
+                            <li>السمبوسة المقلية</li>
+                            <li>أي طعام مقلي بالزيت الغزير</li>
+                        </ul>
+                    </div>
+                    <div class="food-category danger">
+                        <h4>🍔 الوجبات السريعة</h4>
+                        <ul>
+                            <li>البرجر من المطاعم</li>
+                            <li>البيتزا</li>
+                            <li>الشاورما</li>
+                            <li>وجبات المطاعم عموماً</li>
+                        </ul>
+                    </div>
+                    <div class="food-category danger">
+                        <h4>🥤 المشروبات</h4>
+                        <ul>
+                            <li>المشروبات الغازية</li>
+                            <li>العصائر المعلبة</li>
+                            <li>مشروبات الطاقة</li>
+                            <li>القهوة المحلاة (من المقاهي)</li>
+                        </ul>
+                    </div>
+                    <div class="food-category danger">
+                        <h4>🧈 الدهون الضارة</h4>
+                        <ul>
+                            <li>السمن النباتي (المارجرين)</li>
+                            <li>الزيوت المهدرجة</li>
+                            <li>جلد الدجاج</li>
+                            <li>اللحوم الدهنية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="sugar">
+                <h3>السكريات والحلويات - الدليل الشامل</h3>
+
+                <div class="sugar-info">
+                    <div class="sugar-question">
+                        <h4>هل أقطع السكريات نهائياً؟</h4>
+                        <p>لا يجب قطعها نهائياً! القطع المفاجئ يسبب:</p>
+                        <ul>
+                            <li>رغبة شديدة في الأكل (Cravings)</li>
+                            <li>صعوبة الاستمرار في الدايت</li>
+                            <li>احتمال العودة للأكل بشراهة</li>
+                        </ul>
+                    </div>
+
+                    <div class="sugar-rules">
+                        <h4>قواعد السكريات الذهبية:</h4>
+                        <div class="rule-card">
+                            <span class="rule-number">1</span>
+                            <div>
+                                <strong>يوم واحد في الأسبوع (Cheat Day خفيف)</strong>
+                                <p>يمكنك تناول حلى واحدة صغيرة يوم الجمعة (يوم الراحة)</p>
+                            </div>
+                        </div>
+                        <div class="rule-card">
+                            <span class="rule-number">2</span>
+                            <div>
+                                <strong>الكمية مهمة جداً</strong>
+                                <p>قطعة واحدة صغيرة، ليس الصحن كامل!</p>
+                            </div>
+                        </div>
+                        <div class="rule-card">
+                            <span class="rule-number">3</span>
+                            <div>
+                                <strong>التوقيت</strong>
+                                <p>تناول الحلى بعد وجبة رئيسية، وليس على معدة فارغة</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sweets-guide">
+                        <h4>دليل الحلويات:</h4>
+                        <table class="sweets-table">
+                            <thead>
+                                <tr>
+                                    <th>الحلى</th>
+                                    <th>الكمية المسموحة</th>
+                                    <th>السعرات تقريباً</th>
+                                    <th>ملاحظة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="good">
+                                    <td>شوكولاتة داكنة 70%+</td>
+                                    <td>مربعين صغيرين</td>
+                                    <td>~100 سعرة</td>
+                                    <td>الأفضل! فيها مضادات أكسدة</td>
+                                </tr>
+                                <tr class="okay">
+                                    <td>مربعات الشوكولاتة (جالكسي/كادبوري)</td>
+                                    <td>2-3 مربعات صغيرة</td>
+                                    <td>~80-120 سعرة</td>
+                                    <td>مقبول مرة أسبوعياً</td>
+                                </tr>
+                                <tr class="okay">
+                                    <td>بسكويت</td>
+                                    <td>2 حبة</td>
+                                    <td>~100 سعرة</td>
+                                    <td>اختر الأنواع بدون كريمة</td>
+                                </tr>
+                                <tr class="okay">
+                                    <td>آيس كريم</td>
+                                    <td>نصف كوب صغير</td>
+                                    <td>~150 سعرة</td>
+                                    <td>مرة كل أسبوعين</td>
+                                </tr>
+                                <tr class="bad">
+                                    <td>كيك/تشيز كيك</td>
+                                    <td>قطعة صغيرة جداً</td>
+                                    <td>~300-400 سعرة</td>
+                                    <td>تجنب قدر الإمكان</td>
+                                </tr>
+                                <tr class="bad">
+                                    <td>حلويات عربية (بقلاوة/كنافة)</td>
+                                    <td>قطعة واحدة صغيرة</td>
+                                    <td>~200-350 سعرة</td>
+                                    <td>في المناسبات فقط</td>
+                                </tr>
+                                <tr class="bad">
+                                    <td>دونات</td>
+                                    <td>تجنبها</td>
+                                    <td>~300+ سعرة</td>
+                                    <td>سكر + زيت = أسوأ خيار</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="healthy-alternatives">
+                        <h4>بدائل صحية للسكر:</h4>
+                        <ul>
+                            <li><strong>الفواكه:</strong> فراولة، توت، تفاح (طعم حلو طبيعي)</li>
+                            <li><strong>الزبادي اليوناني + عسل:</strong> ملعقة عسل صغيرة مع زبادي</li>
+                            <li><strong>تمرة مع لوز:</strong> حلى طبيعية ومغذية</li>
+                            <li><strong>شوكولاتة داكنة:</strong> 70% كاكاو أو أكثر</li>
+                            <li><strong>سموذي:</strong> موز مجمد + حليب = آيس كريم طبيعي</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workout Schedule -->
+        <section id="scheduleSection">
+            <h2>جدول التمارين الأسبوعي</h2>
+            <p>علامة ✓ تعني إكمال التمرين لهذا اليوم.</p>
+            <p class="explanation">سيتم حفظ علامة التمرين تلقائياً عند التأشير على الخانة.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اليوم</th>
+                        <th>نوع التمرين</th>
+                        <th>الروابط</th>
+                        <th>تم؟</th>
+                        <th>السعرات المحروقة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>السبت</td>
+                        <td>بطن + كارديو</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank">MadFit Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=2pLT-olgUJs" target="_blank">Chloe Ting Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=ml6cT4AZdqI" target="_blank">HIIT لحرق الدهون</a>
+                        </td>
+                        <td><input type="checkbox" id="day0" onchange="toggleCompleted('day0')"></td>
+                        <td id="calDay0">—</td>
+                    </tr>
+                    <tr>
+                        <td>الأحد</td>
+                        <td>جسم كامل</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=UBMk30rjy0o" target="_blank">MadFit Full Body</a><br>
+                            <a href="https://www.youtube.com/watch?v=ZMO_XC9w7Kk" target="_blank">Caroline Girvan</a>
+                        </td>
+                        <td><input type="checkbox" id="day1" onchange="toggleCompleted('day1')"></td>
+                        <td id="calDay1">—</td>
+                    </tr>
+                    <tr>
+                        <td>الاثنين</td>
+                        <td>بطن + كارديو</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank">MadFit Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=2pLT-olgUJs" target="_blank">Chloe Ting Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=ml6cT4AZdqI" target="_blank">HIIT لحرق الدهون</a>
+                        </td>
+                        <td><input type="checkbox" id="day2" onchange="toggleCompleted('day2')"></td>
+                        <td id="calDay2">—</td>
+                    </tr>
+                    <tr>
+                        <td>الثلاثاء</td>
+                        <td>جسم كامل</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=UBMk30rjy0o" target="_blank">MadFit Full Body</a><br>
+                            <a href="https://www.youtube.com/watch?v=ZMO_XC9w7Kk" target="_blank">Caroline Girvan</a>
+                        </td>
+                        <td><input type="checkbox" id="day3" onchange="toggleCompleted('day3')"></td>
+                        <td id="calDay3">—</td>
+                    </tr>
+                    <tr>
+                        <td>الأربعاء</td>
+                        <td>بطن + كارديو</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank">MadFit Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=2pLT-olgUJs" target="_blank">Chloe Ting Abs</a><br>
+                            <a href="https://www.youtube.com/watch?v=ml6cT4AZdqI" target="_blank">HIIT لحرق الدهون</a>
+                        </td>
+                        <td><input type="checkbox" id="day4" onchange="toggleCompleted('day4')"></td>
+                        <td id="calDay4">—</td>
+                    </tr>
+                    <tr>
+                        <td>الخميس</td>
+                        <td>جسم كامل</td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=UBMk30rjy0o" target="_blank">MadFit Full Body</a><br>
+                            <a href="https://www.youtube.com/watch?v=ZMO_XC9w7Kk" target="_blank">Caroline Girvan</a>
+                        </td>
+                        <td><input type="checkbox" id="day5" onchange="toggleCompleted('day5')"></td>
+                        <td id="calDay5">—</td>
+                    </tr>
+                    <tr>
+                        <td>الجمعة</td>
+                        <td>راحة</td>
+                        <td>—</td>
+                        <td><input type="checkbox" id="day6" disabled></td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="calories-summary">
+                <strong>مجموع السعرات المحروقة هذا الأسبوع:</strong>
+                <span id="weeklyCalories">0</span> سعرة
+            </div>
+        </section>
+
+        <!-- Week Log Section -->
+        <section id="weekLogSection">
+            <h2>سجل الأسابيع</h2>
+            <table id="weekLogTable">
+                <thead>
+                    <tr>
+                        <th>الأسبوع</th>
+                        <th>من</th>
+                        <th>إلى</th>
+                        <th>مجموع السعرات</th>
+                        <th>الوزن الابتدائي</th>
+                        <th>الوزن الختامي</th>
+                        <th>الفرق</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- نموذج يوم غذائي -->
+        <section id="mealPlanSection">
+            <h2>نموذج يوم غذائي</h2>
+            <p class="explanation">هذا مثال على توزيع الوجبات خلال اليوم. يمكنك تعديله حسب احتياجاتك.</p>
+
+            <div class="meal-timeline">
+                <div class="meal-card">
+                    <div class="meal-time">8:00 صباحاً</div>
+                    <div class="meal-name">الفطور</div>
+                    <div class="meal-content">
+                        <ul>
+                            <li>3 بيضات مسلوقة أو أومليت</li>
+                            <li>خبز أسمر (قطعة)</li>
+                            <li>خيار + طماطم</li>
+                            <li>كوب شاي أخضر</li>
+                        </ul>
+                    </div>
+                    <div class="meal-calories">~400 سعرة</div>
+                </div>
+
+                <div class="meal-card snack">
+                    <div class="meal-time">11:00 صباحاً</div>
+                    <div class="meal-name">سناك</div>
+                    <div class="meal-content">
+                        <ul>
+                            <li>تفاحة أو برتقالة</li>
+                            <li>حفنة لوز (10 حبات)</li>
+                        </ul>
+                    </div>
+                    <div class="meal-calories">~200 سعرة</div>
+                </div>
+
+                <div class="meal-card">
+                    <div class="meal-time">2:00 ظهراً</div>
+                    <div class="meal-name">الغداء</div>
+                    <div class="meal-content">
+                        <ul>
+                            <li>صدر دجاج مشوي (150 جرام)</li>
+                            <li>أرز (كوب) أو بطاطس مشوية</li>
+                            <li>سلطة خضراء كبيرة</li>
+                        </ul>
+                    </div>
+                    <div class="meal-calories">~500 سعرة</div>
+                </div>
+
+                <div class="meal-card snack">
+                    <div class="meal-time">5:00 مساءً</div>
+                    <div class="meal-name">قبل التمرين</div>
+                    <div class="meal-content">
+                        <ul>
+                            <li>موزة</li>
+                            <li>أو: 2 تمرة</li>
+                        </ul>
+                    </div>
+                    <div class="meal-calories">~100 سعرة</div>
+                </div>
+
+                <div class="meal-card">
+                    <div class="meal-time">8:00 مساءً</div>
+                    <div class="meal-name">العشاء</div>
+                    <div class="meal-content">
+                        <ul>
+                            <li>سمك مشوي أو تونة</li>
+                            <li>سلطة أو خضار مشوية</li>
+                            <li>زبادي يوناني</li>
+                        </ul>
+                    </div>
+                    <div class="meal-calories">~400 سعرة</div>
+                </div>
+            </div>
+
+            <div class="daily-total">
+                <strong>المجموع التقريبي:</strong> 1600 سعرة
+                <p class="note">هذا مثال لشخص هدفه خسارة الوزن. عدّل الكميات حسب سعراتك المستهدفة.</p>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section id="tipsSection">
+            <h2>نصائح مهمة</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">⏰</div>
+                    <h4>وقت التمرين</h4>
+                    <p>أفضل وقت للتمرين بين 4 إلى 10 مساءً. انتظر 60-90 دقيقة بعد الأكل.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">💧</div>
+                    <h4>الماء</h4>
+                    <p>اشرب 3 لترات ماء يومياً. ابدأ يومك بكوب ماء على الريق.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">😴</div>
+                    <h4>النوم</h4>
+                    <p>نم 7-8 ساعات. تجنب التمرين قبل النوم مباشرة (60 دقيقة على الأقل).</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <h4>الصبر</h4>
+                    <p>النتائج تحتاج وقت! ركز على الاستمرارية وليس السرعة.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weight Log -->
+        <section id="weightLogSection">
+            <h2>سجل الوزن</h2>
+            <p class="explanation">سجّل وزنك أسبوعياً لمتابعة تقدمك. يفضل الوزن صباحاً قبل الأكل.</p>
+            <form id="weightLogForm">
+                <label for="weightLogInput">الوزن (كجم):</label>
+                <input type="number" step="0.1" id="weightLogInput">
+                <button type="submit">إضافة سجل</button>
+            </form>
+            <ul id="weightLogList"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>هذا الموقع لمساعدتك على متابعة تقدمك في رحلة اللياقة</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

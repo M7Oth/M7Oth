@@ -1,0 +1,883 @@
+/* =============================================
+   موقع متابعة اللياقة البدنية - CSS
+   ============================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0d1b2a;
+    color: #e0e5eb;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #014f86 0%, #0176b8 100%);
+    color: #ffffff;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #0a3d6d;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Main Container */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Sections */
+section {
+    margin-bottom: 30px;
+    background-color: #162b40;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+    border-top: 3px solid #0176b8;
+}
+
+section h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #00bfff;
+    border-right: 6px solid #00bfff;
+    padding-right: 12px;
+    margin-bottom: 15px;
+}
+
+section h3 {
+    color: #00d4ff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+/* Form Elements */
+.field-group {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #b8c9db;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3a4a6a;
+    border-radius: 6px;
+    background-color: #1c304d;
+    color: #e0e5eb;
+    font-size: 1rem;
+    transition: border 0.2s ease, background-color 0.2s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: #00bfff;
+    background-color: #243f5e;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #00bfff;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.15s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #009acb;
+    transform: translateY(-2px);
+}
+
+/* Grid Layouts */
+.info-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* User Display */
+.user-display {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #c9d6e1;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #1a2e46;
+}
+
+/* Progress Image Section */
+#progressImageSection {
+    text-align: center;
+}
+
+.body-icon {
+    margin: 15px auto;
+}
+
+.body-icon svg {
+    filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.3));
+    transition: all 0.5s ease;
+}
+
+/* Progress Bar */
+#progressBarContainer {
+    margin-top: 15px;
+    width: 100%;
+    background-color: #1a2e46;
+    border-radius: 10px;
+    height: 25px;
+    border: 1px solid #213d5b;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #00bfff, #00ff88);
+    border-radius: 10px 0 0 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(0,191,255,0.5);
+}
+
+.progress-label {
+    margin-top: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00bfff;
+    text-align: center;
+}
+
+/* Calorie Calculator Section */
+.calorie-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.calorie-card {
+    background: linear-gradient(135deg, #1a2e46, #243f5e);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #3a4a6a;
+}
+
+.calorie-card.highlight {
+    border: 2px solid #00bfff;
+    background: linear-gradient(135deg, #1a3a50, #2a5070);
+}
+
+.calorie-label {
+    font-size: 0.9rem;
+    color: #97a9bd;
+    margin-bottom: 8px;
+}
+
+.calorie-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00ff88;
+}
+
+.calorie-card.highlight .calorie-value {
+    color: #00bfff;
+}
+
+.calorie-desc {
+    font-size: 0.8rem;
+    color: #7a8fa3;
+    margin-top: 8px;
+}
+
+/* Macro Results */
+.macro-results {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #3a4a6a;
+}
+
+.macro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.macro-item {
+    background-color: #1a2e46;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border-right: 4px solid;
+}
+
+.macro-item.protein {
+    border-color: #ff6b6b;
+}
+
+.macro-item.carbs {
+    border-color: #ffd93d;
+}
+
+.macro-item.fats {
+    border-color: #6bcb77;
+}
+
+.macro-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.macro-name {
+    font-weight: bold;
+    color: #e0e5eb;
+    margin-bottom: 5px;
+}
+
+.macro-value {
+    font-size: 1.3rem;
+    color: #00bfff;
+    font-weight: bold;
+}
+
+.macro-calories {
+    font-size: 0.85rem;
+    color: #7a8fa3;
+    margin-top: 4px;
+}
+
+/* BMI Display */
+.bmi-display {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #1a2e46;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.bmi-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00bfff;
+}
+
+.bmi-category {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.bmi-category.underweight {
+    background-color: rgba(100, 149, 237, 0.3);
+    color: #6495ed;
+}
+
+.bmi-category.normal {
+    background-color: rgba(107, 203, 119, 0.3);
+    color: #6bcb77;
+}
+
+.bmi-category.overweight {
+    background-color: rgba(255, 217, 61, 0.3);
+    color: #ffd93d;
+}
+
+.bmi-category.obese {
+    background-color: rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+}
+
+.bmi-bar-container {
+    margin: 20px auto;
+    max-width: 400px;
+    position: relative;
+}
+
+.bmi-bar {
+    display: flex;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bmi-zone {
+    flex: 1;
+}
+
+.bmi-zone.underweight {
+    background-color: #6495ed;
+}
+
+.bmi-zone.normal {
+    background-color: #6bcb77;
+}
+
+.bmi-zone.overweight {
+    background-color: #ffd93d;
+}
+
+.bmi-zone.obese {
+    background-color: #ff6b6b;
+}
+
+.bmi-indicator {
+    position: absolute;
+    top: -5px;
+    width: 4px;
+    height: 22px;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: left 0.5s ease;
+}
+
+.bmi-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #7a8fa3;
+}
+
+/* Diet Section */
+.diet-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background-color: #1a2e46;
+    border: 1px solid #3a4a6a;
+    color: #97a9bd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.tab-btn:hover {
+    background-color: #243f5e;
+    transform: none;
+}
+
+.tab-btn.active {
+    background-color: #00bfff;
+    color: white;
+    border-color: #00bfff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.food-category {
+    background-color: #1a2e46;
+    padding: 15px;
+    border-radius: 8px;
+    border-right: 4px solid #00bfff;
+}
+
+.food-category.warning {
+    border-color: #ffd93d;
+}
+
+.food-category.danger {
+    border-color: #ff6b6b;
+}
+
+.food-category h4 {
+    margin: 0 0 12px 0;
+    color: #00d4ff;
+    font-size: 1.1rem;
+}
+
+.food-category ul {
+    margin: 0;
+    padding-right: 20px;
+    list-style-type: disc;
+}
+
+.food-category li {
+    margin-bottom: 6px;
+    color: #b8c9db;
+    font-size: 0.95rem;
+}
+
+.food-category .note {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #243f5e;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: #00bfff;
+}
+
+/* Sugar Section */
+.sugar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sugar-question {
+    background-color: #1a2e46;
+    padding: 20px;
+    border-radius: 8px;
+    border-right: 4px solid #ffd93d;
+}
+
+.sugar-question h4 {
+    color: #ffd93d;
+    margin-top: 0;
+}
+
+.sugar-question ul {
+    margin: 10px 0 0 0;
+    padding-right: 20px;
+}
+
+.sugar-rules {
+    background-color: #1a2e46;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sugar-rules h4 {
+    color: #6bcb77;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.rule-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #243f5e;
+    border-radius: 8px;
+}
+
+.rule-number {
+    width: 30px;
+    height: 30px;
+    background-color: #00bfff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.rule-card strong {
+    color: #e0e5eb;
+}
+
+.rule-card p {
+    margin: 5px 0 0 0;
+    color: #97a9bd;
+    font-size: 0.9rem;
+}
+
+/* Sweets Table */
+.sweets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.sweets-table th,
+.sweets-table td {
+    padding: 12px;
+    border: 1px solid #3a4a6a;
+    text-align: center;
+}
+
+.sweets-table th {
+    background-color: #014f86;
+    color: #00bfff;
+}
+
+.sweets-table tr.good {
+    background-color: rgba(107, 203, 119, 0.1);
+}
+
+.sweets-table tr.okay {
+    background-color: rgba(255, 217, 61, 0.1);
+}
+
+.sweets-table tr.bad {
+    background-color: rgba(255, 107, 107, 0.1);
+}
+
+.healthy-alternatives {
+    background-color: #1a2e46;
+    padding: 20px;
+    border-radius: 8px;
+    border-right: 4px solid #6bcb77;
+}
+
+.healthy-alternatives h4 {
+    color: #6bcb77;
+    margin-top: 0;
+}
+
+.healthy-alternatives ul {
+    margin: 0;
+    padding-right: 20px;
+}
+
+.healthy-alternatives li {
+    margin-bottom: 8px;
+    color: #b8c9db;
+}
+
+/* Tables (Schedule & Week Log) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #e0e5eb;
+}
+
+th, td {
+    border: 1px solid #213d5b;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #014f86;
+    color: #00bfff;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1a2e46;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #15263b;
+}
+
+tbody tr:hover {
+    background-color: #233a4b;
+}
+
+.completed-row {
+    background-color: #10364a !important;
+    opacity: 0.85;
+}
+
+td a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #00bfff;
+}
+
+/* Calories Summary */
+.calories-summary {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #00bfff;
+    text-align: right;
+    padding: 10px;
+    background-color: #1a2e46;
+    border-radius: 6px;
+}
+
+/* Meal Plan Section */
+.meal-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.meal-card {
+    display: grid;
+    grid-template-columns: 100px 120px 1fr 100px;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    background-color: #1a2e46;
+    border-radius: 8px;
+    border-right: 4px solid #00bfff;
+}
+
+.meal-card.snack {
+    border-color: #ffd93d;
+    background-color: #1a2a3a;
+}
+
+.meal-time {
+    font-weight: bold;
+    color: #00bfff;
+    font-size: 0.95rem;
+}
+
+.meal-name {
+    font-weight: bold;
+    color: #e0e5eb;
+}
+
+.meal-content ul {
+    margin: 0;
+    padding-right: 20px;
+    font-size: 0.9rem;
+    color: #b8c9db;
+}
+
+.meal-content li {
+    margin-bottom: 4px;
+}
+
+.meal-calories {
+    background-color: #243f5e;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.daily-total {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #243f5e;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #00bfff;
+}
+
+.daily-total .note {
+    font-size: 0.85rem;
+    color: #97a9bd;
+    margin-top: 8px;
+}
+
+/* Tips Section */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.tip-card {
+    background-color: #1a2e46;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-top: 3px solid #00bfff;
+}
+
+.tip-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.tip-card h4 {
+    color: #00d4ff;
+    margin: 0 0 10px 0;
+}
+
+.tip-card p {
+    margin: 0;
+    color: #b8c9db;
+    font-size: 0.9rem;
+}
+
+/* Weight Log */
+#weightLogSection form {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+#weightLogSection label {
+    margin-bottom: 0;
+}
+
+#weightLogSection input {
+    width: 150px;
+}
+
+#weightLogList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+#weightLogList li {
+    background-color: #15263b;
+    margin-bottom: 6px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-right: 5px solid #00bfff;
+    color: #c9d6e1;
+    transition: background-color 0.2s ease;
+}
+
+#weightLogList li:hover {
+    background-color: #1f3a5c;
+}
+
+/* Explanation Text */
+.explanation {
+    font-size: 0.9rem;
+    color: #97a9bd;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    background-color: #15263b;
+    padding: 10px;
+    border-radius: 6px;
+    border-right: 4px solid #00bfff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #014f86;
+    color: #00bfff;
+    font-size: 0.9rem;
+    margin-top: 30px;
+    border-top: 1px solid #0a3d6d;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    section h2 {
+        font-size: 1.3rem;
+    }
+
+    .meal-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .meal-card .meal-time,
+    .meal-card .meal-name {
+        text-align: center;
+    }
+
+    .meal-content ul {
+        text-align: right;
+    }
+
+    .diet-tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        width: 100%;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+
+    th, td {
+        padding: 8px 5px;
+    }
+
+    .calorie-value {
+        font-size: 1.4rem;
+    }
+
+    .bmi-value {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 10px;
+    }
+
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .macro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+}

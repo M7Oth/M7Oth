@@ -1,0 +1,10 @@
+# Optional: host only the static client on Netlify; the server (WebSockets) must run elsewhere (Render/Fly/Railway).
+# Set VITE_SERVER_URL in the Netlify site settings to the public URL of the server, e.g. https://fls.onrender.com
+[build]
+  command = "npm run build"
+  publish = "client/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

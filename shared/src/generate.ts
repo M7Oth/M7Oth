@@ -54,8 +54,10 @@ export function generateOffer(state: GameState, rng: Rng, opts: { clientId?: str
   const big = !!opts.big;
 
   let taskCount = 1;
-  if (state.stage === 1) taskCount = rng.chance(0.35) ? 2 : 1;
-  else if (state.stage === 2) taskCount = rng.int(1, 3);
+  const coop = Object.keys(state.players ?? {}).length > 1;
+  if (state.stage === 1) taskCount = rng.chance(coop ? 0.65 : 0.35) ? 2 : 1;
+  else if (state.stage === 2 && coop) taskCount = rng.int(2, 3);
+  else if (state.stage === 2 && !coop) taskCount = rng.int(1, 3);
   else taskCount = rng.int(2, 4);
   if (big) taskCount = rng.int(4, 6);
 

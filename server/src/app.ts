@@ -4,7 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
-import { createWorld, SPECIALTIES, type Appearance, type SpecialtyId } from '@fls/shared';
+import { createWorld, makeRng, randomAppearance, SPECIALTIES, type Appearance, type SpecialtyId } from '@fls/shared';
 import type { Store, UserRow } from './store';
 import { RoomManager } from './rooms';
 
@@ -75,7 +75,7 @@ export async function startApp(opts: AppOptions) {
       const password = String(b.password ?? '');
       if (!/^[a-z0-9_.-]{3,20}$/.test(username)) return err(res, 400, 'اسم المستخدم يجب أن يكون 3-20 حرفًا إنجليزيًا أو أرقامًا', 'Username must be 3-20 latin letters/digits');
       if (password.length < 6) return err(res, 400, 'كلمة المرور قصيرة (6 أحرف على الأقل)', 'Password too short (min 6)');
-      const u: UserRow = { id: rid('u'), username, displayName: String(b.displayName ?? username).trim().slice(0, 24) || username, passHash: hashPassword(password), appearance: cleanAppearance(b.appearance), bank: 0 };
+      const u: UserRow = { id: rid('u'), username, displayName: String(b.displayName ?? username).trim().slice(0, 24) || username, passHash: hashPassword(password), appearance: b.appearance ? cleanAppearance(b.appearance) : randomAppearance(makeRng(crypto.randomInt(1, 2 ** 31))), bank: 0 };
       try { await store.createUser(u); } catch (e: any) { if (e.code === '23505') return err(res, 409, 'اسم المستخدم مستخدم', 'Username taken'); throw e; }
       return json(res, 200, { token: await issueSession(u), user: publicUser(u) });
     }

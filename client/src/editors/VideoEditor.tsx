@@ -110,11 +110,11 @@ export function VideoEditor({ doc: d, setDoc, reqs, help, zoom, guides, sloppy }
             <div key={m.id} className="bin-item">
               <span className="sw" style={{ background: m.color }} />
               <span>{L(m.label)} <small>{m.length}s</small></span>
-              {m.broll && <button className="btn tiny" onClick={() => commit(videoOps.addOverlay(doc, m.id, snap(t), Math.min(dur, snap(t) + 3)))}>{T('طبقة علوية', 'Overlay')}</button>}
+              {m.broll && <button className="btn tiny" data-testid="add-overlay" onClick={() => commit(videoOps.addOverlay(doc, m.id, snap(t), Math.min(dur, snap(t) + 3)))}>{T('طبقة علوية', 'Overlay')}</button>}
             </div>
           ))}
           <h5>🎵 {T('مكتبة الصوت', 'Audio library')}</h5>
-          {TRACKS.map((tr) => <button key={tr.id} className="btn tiny wide" onClick={() => { commit(videoOps.addAudio(doc, tr.id)); sfx('pop'); }}>+ {L(tr.name)}</button>)}
+          {TRACKS.map((tr) => <button key={tr.id} data-track={tr.id} className="btn tiny wide" onClick={() => { commit(videoOps.addAudio(doc, tr.id)); sfx('pop'); }}>+ {L(tr.name)}</button>)}
         </div>
         <div className="ve-preview">
           <div className="screen" style={{ background: media(cur?.mediaId)?.color ?? '#111', filter: GRADE_CSS[cur?.grade ?? 'none'] }}>
@@ -139,8 +139,8 @@ export function VideoEditor({ doc: d, setDoc, reqs, help, zoom, guides, sloppy }
             <>
               <div><b>{L(media(selClip.mediaId)?.label)}</b></div>
               <div className="muted tiny">src {r1(selClip.srcIn)}–{r1(selClip.srcOut)}s ({r1(clipLen(selClip))}s)</div>
-              <label>{T('تصحيح الألوان', 'Color grade')}<select value={selClip.grade} onChange={(e) => commit(videoOps.setClip(doc, selClip.id, { grade: e.target.value }))}>{GRADES.map((g) => <option key={g} value={g}>{L(GRADE_NAMES[g])}</option>)}</select></label>
-              <label>{T('الانتقال بعدها', 'Transition after')}<select value={selClip.transOut} onChange={(e) => commit(videoOps.setClip(doc, selClip.id, { transOut: e.target.value }))}>{TRANSITIONS.map((g) => <option key={g} value={g}>{L(TRANSITION_NAMES[g])}</option>)}</select></label>
+              <label>{T('تصحيح الألوان', 'Color grade')}<select data-testid="clip-grade" value={selClip.grade} onChange={(e) => commit(videoOps.setClip(doc, selClip.id, { grade: e.target.value }))}>{GRADES.map((g) => <option key={g} value={g}>{L(GRADE_NAMES[g])}</option>)}</select></label>
+              <label>{T('الانتقال بعدها', 'Transition after')}<select data-testid="clip-trans" value={selClip.transOut} onChange={(e) => commit(videoOps.setClip(doc, selClip.id, { transOut: e.target.value }))}>{TRANSITIONS.map((g) => <option key={g} value={g}>{L(TRANSITION_NAMES[g])}</option>)}</select></label>
             </>
           )}
           {selText && <TextProps t={selText} onChange={(p) => commit(videoOps.updateText(doc, selText.id, p))} dur={dur} />}
@@ -196,10 +196,10 @@ export function VideoEditor({ doc: d, setDoc, reqs, help, zoom, guides, sloppy }
             ))}
           </div>
           <div className="track"><span className="tname">T</span>
-            {doc.texts.map((x) => <div key={x.id} className={`clip txt ${sel?.id === x.id ? 'sel' : ''}`} style={{ ...lane(x.start, x.end - x.start) }} onClick={(e) => { e.stopPropagation(); setSel({ kind: 'text', id: x.id }); }}>🅣 {x.content}</div>)}
+            {doc.texts.map((x) => <div key={x.id} data-testid="text-clip" className={`clip txt ${sel?.id === x.id ? 'sel' : ''}`} style={{ ...lane(x.start, x.end - x.start) }} onClick={(e) => { e.stopPropagation(); setSel({ kind: 'text', id: x.id }); }}>🅣 {x.content}</div>)}
           </div>
           <div className="track"><span className="tname">A1</span>
-            {doc.audio.map((a) => <div key={a.id} className={`clip aud ${sel?.id === a.id ? 'sel' : ''}`} style={{ ...lane(a.start, a.end - a.start) }} onClick={(e) => { e.stopPropagation(); setSel({ kind: 'audio', id: a.id }); }}>🎵 {L(TRACKS.find((x) => x.id === a.trackId)?.name)} · {a.volume}%</div>)}
+            {doc.audio.map((a) => <div key={a.id} data-testid="audio-clip" className={`clip aud ${sel?.id === a.id ? 'sel' : ''}`} style={{ ...lane(a.start, a.end - a.start) }} onClick={(e) => { e.stopPropagation(); setSel({ kind: 'audio', id: a.id }); }}>🎵 {L(TRACKS.find((x) => x.id === a.trackId)?.name)} · {a.volume}%</div>)}
           </div>
           <div className="playhead" style={lane(t, 0)} />
         </div>
@@ -219,8 +219,8 @@ function TextProps({ t, onChange, dur }: { t: VText; onChange: (p: Partial<VText
         <label>{T('إلى', 'To')}<input type="number" step={0.5} min={0} max={dur} value={t.end} onChange={(e) => onChange({ end: Number(e.target.value) })} data-testid="text-end" /></label>
       </div>
       <span className="lbl">{T('اللون', 'Color')}</span>
-      <div className="swatches">{COLORS.map((c) => <button key={c.hex} title={L(c.name)} className={t.color === c.hex ? 'on' : ''} style={{ background: c.hex }} onClick={() => onChange({ color: c.hex })} />)}</div>
-      <label>{T('الموضع', 'Position')}<select value={t.position} onChange={(e) => onChange({ position: e.target.value as VText['position'] })}>
+      <div className="swatches">{COLORS.map((c) => <button key={c.hex} data-color={c.hex} title={L(c.name)} className={t.color === c.hex ? 'on' : ''} style={{ background: c.hex }} onClick={() => onChange({ color: c.hex })} />)}</div>
+      <label>{T('الموضع', 'Position')}<select data-testid="text-position" value={t.position} onChange={(e) => onChange({ position: e.target.value as VText['position'] })}>
         <option value="top">{T('أعلى', 'Top')}</option><option value="center">{T('وسط', 'Center')}</option><option value="bottom">{T('أسفل', 'Bottom')}</option>
       </select></label>
     </>

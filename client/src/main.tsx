@@ -1,6 +1,7 @@
 import { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useGame } from './store';
+import { exportMinutes, checkAll } from '@fls/shared';
 import { applyDir } from './i18n';
 import { MainMenu, CreateCharacter, openLocal, openRemote } from './ui/Menu';
 import { HUD } from './ui/HUD';
@@ -23,6 +24,6 @@ function App() {
 }
 
 // test/debug hook (read-only access + helpers used by the automated end-to-end scenario)
-(window as any).__fls = { useGame, openLocal, openRemote };
+(window as any).__fls = { useGame, openLocal, openRemote, exportMinutes, checkAll };
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

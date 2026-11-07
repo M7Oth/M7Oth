@@ -103,6 +103,7 @@ function TaskWorkspace({ state, taskId }: { state: GameState; taskId: string }) 
   const undo = () => { const prev = history.current.pop(); if (prev) { setDocRaw(prev); sfx('click'); } };
   const me = state.players[you];
   const eq = equipmentStats(state);
+  (window as any).__flsDoc = doc; // read-only debug hook used by the automated browser test
   const check = useMemo(() => (found && doc ? checkAll(found.t.specialty, doc, found.t.requirements) : null), [doc, found]);
   useEffect(() => {
     const t = setInterval(() => { if (check) useGame.getState().conn?.sendWork(taskId, check.correctness * 100); }, 2500);

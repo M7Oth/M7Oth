@@ -411,19 +411,51 @@ function Staff({ state }: { state: GameState }) {
   const desks = fixedFurniture(state).filter((f) => f.kind === 'staffDesk');
   return (
     <>
-      {state.employees.map((e, i) => {
-        const d = desks[i];
-        if (!d) return null;
-        const working = !!e.taskId && e.trainingUntil <= state.time;
-        const icon = e.role === 'coordinator' ? '📇' : e.role === 'pm' ? '📋' : e.raiseRequest ? '💰' : e.satisfaction < 30 ? '😠' : e.trainingUntil > state.time ? '🎓' : null;
-        return (
-          <group key={e.id} position={[d.x + 1, 0, d.z + 1.12]} rotation-y={Math.PI}>
-            <Character appearance={e.appearance} anim={working || e.role !== 'creative' ? 'type' : 'sit'} name={personName(e.name, lang)} seed={i * 1.7} bubble={icon} />
-          </group>
-        );
-      })}
+      {state.employees.map((e, i) => desks[i] ? <StaffMember key={e.id} state={state} e={e} i={i} desk={desks[i]} lang={lang} /> : null)}
     </>
   );
+}
+
+/** Staff sit and work at their desk; idle creatives take short coffee trips (driven by game time, identical for every player). */
+function StaffMember({ state, e, i, desk, lang }: { state: GameState; e: GameState['employees'][number]; i: number; desk: { x: number; z: number }; lang: 'ar' | 'en' }) {
+  const g = useRef<THREE.Group>(null);
+  const size = roomSize(state);
+  const seat = { x: desk.x + 1, z: desk.z + 1.12 };
+  const path = useMemo(() => {
+    const blocked = occupiedTiles(state);
+    const from: [number, number] = [desk.x + 1, desk.z + 1];
+    const to: [number, number] = [1, size.d - 1];
+    blocked.delete(`${from[0]},${from[1]}`);
+    return (findPath(size.w, size.d, blocked, from, to) ?? [from, to]).map(([x, z]) => new THREE.Vector3(x + 0.5, 0, z + 0.5));
+  }, [state.officeTier, state.room.placed.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  const working = !!e.taskId && e.trainingUntil <= state.time;
+  const idleCreative = e.role === 'creative' && !working;
+  const [anim, setAnim] = useState<Anim>('type');
+  useFrame(() => {
+    const grp = g.current;
+    if (!grp) return;
+    const t = useGame.getState().state?.time ?? state.time;
+    const phase = ((t + i * 41) % 150);
+    let a: Anim = working || e.role !== 'creative' ? 'type' : 'sit';
+    if (idleCreative && phase < 26 && path.length > 1) {
+      // 0-7 walk out, 7-19 at the coffee bar, 19-26 walk back
+      const segLen = path.length - 1;
+      const f = phase < 7 ? phase / 7 : phase < 19 ? 1 : 1 - (phase - 19) / 7;
+      const pos = f * segLen;
+      const k = Math.min(segLen - 1, Math.floor(pos));
+      const p = path[k].clone().lerp(path[k + 1], pos - k);
+      grp.position.copy(p);
+      const dir = phase < 7 ? path[k + 1].clone().sub(path[k]) : path[k].clone().sub(path[k + 1]);
+      grp.rotation.y = phase >= 7 && phase < 19 ? -Math.PI / 2 : Math.atan2(dir.x, dir.z);
+      a = phase >= 7 && phase < 19 ? 'coffee' : 'walk';
+    } else {
+      grp.position.set(seat.x, 0, seat.z);
+      grp.rotation.y = Math.PI;
+    }
+    if (a !== anim) setAnim(a);
+  });
+  const icon = e.role === 'coordinator' ? '📇' : e.role === 'pm' ? '📋' : e.raiseRequest ? '💰' : e.satisfaction < 30 ? '😠' : e.trainingUntil > state.time ? '🎓' : anim === 'coffee' ? '☕' : null;
+  return <group ref={g}><Character appearance={e.appearance} anim={anim} name={personName(e.name, lang)} seed={i * 1.7} bubble={icon} /></group>;
 }
 
 function InteractionMenu({ state }: { state: GameState }) {

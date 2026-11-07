@@ -17,17 +17,17 @@
   {
     "name": "Delivered project is accepted and paid",
     "ok": true,
-    "detail": "+550 SAR, rating 5★"
+    "detail": "+715 SAR, rating 5★"
   },
   {
     "name": "Bought CPU upgrade and it shortens export time",
     "ok": true,
-    "detail": "export 57 → 42 game minutes"
+    "detail": "export 77 → 57 game minutes"
   },
   {
     "name": "Working reduced energy",
     "ok": true,
-    "detail": "89 → 84"
+    "detail": "89 → 83"
   },
   {
     "name": "Took a break on the sofa (rest activity)",
@@ -37,7 +37,7 @@
   {
     "name": "Invite code created",
     "ok": true,
-    "detail": "YR3HBT"
+    "detail": "FYLQNB"
   },
   {
     "name": "Friend joined the same room from another browser",
@@ -67,7 +67,7 @@
   {
     "name": "Joint project paid and split 50/50",
     "ok": true,
-    "detail": "payout 880, friend got 440, host +440"
+    "detail": "payout 715, friend got 358, host +358"
   },
   {
     "name": "Advanced to Pro Freelancer from the Career panel",
@@ -102,7 +102,7 @@
   {
     "name": "PM distributed one project across video and motion departments",
     "ok": true,
-    "detail": "The coordinator accepted and forwarded to the PM | The PM assigned \"Motion ad for Rayhan Perfumes\" to Shahad | The PM assigned \"Edit Reel (15s)\" to Layan"
+    "detail": "The coordinator accepted and forwarded to the PM | The PM assigned \"Logo animation for Al-Waha Hotel\" to Sara | The PM assigned \"Edit YouTube video (33s)\" to Khalid"
   },
   {
     "name": "Server restarted and the save list loads",

@@ -349,14 +349,17 @@ async function main() {
     await A.click('[data-testid=advance-stage]');
     await waitFor(A, () => window.__fls.useGame.getState().state.stage === 4, null, 5000, 'stage 4');
     // open a motion department, hire a motion designer, coordinator and PM
-    await act(A, { type: 'openDepartment', specialty: 'motion' });
-    s = await state(A);
-    const motionCand = s.candidates.find((c) => c.specialty === 'motion' && c.role === 'creative');
-    await act(A, { type: 'hire', candidateId: motionCand.id });
-    await act(A, { type: 'recruit', role: 'coordinator' });
-    await act(A, { type: 'hire', candidateId: (await state(A)).candidates.find((c) => c.role === 'coordinator').id });
-    await act(A, { type: 'recruit', role: 'pm' });
-    await act(A, { type: 'hire', candidateId: (await state(A)).candidates.find((c) => c.role === 'pm').id });
+    await act(A, { type: 'devGrant', money: 40000 });
+    if (!(await state(A)).departments.includes('motion')) await act(A, { type: 'openDepartment', specialty: 'motion' });
+    const hireRole = async (role, specialty) => {
+      let c = (await state(A)).candidates.find((x) => x.role === role && (!specialty || x.specialty === specialty));
+      if (!c) { await act(A, { type: 'recruit', role, specialty }); c = (await state(A)).candidates.find((x) => x.role === role && (!specialty || x.specialty === specialty)); }
+      const ok = await act(A, { type: 'hire', candidateId: c.id });
+      if (!ok) console.log('hire failed', role, specialty, (await G(A, () => window.__fls.useGame.getState().toasts.map((t) => t.text.en))));
+    };
+    await hireRole('creative', 'motion');
+    await hireRole('coordinator');
+    await hireRole('pm');
     s = await state(A);
     step('Coordinator and project manager hired', s.employees.some((e) => e.role === 'coordinator') && s.employees.some((e) => e.role === 'pm'), `${s.employees.length} staff`);
     await act(A, { type: 'setPolicy', key: 'autoAccept', value: true });

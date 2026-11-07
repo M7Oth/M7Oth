@@ -100,7 +100,7 @@ kbd { font-size: 10px; background: rgba(255,255,255,0.12); padding: 0 4px; borde
 .game { position: fixed; inset: 0; }
 .world-canvas { position: absolute !important; inset: 0; }
 .loading { position: fixed; inset: 0; display: grid; place-items: center; font-size: 20px; }
-.hud { position: fixed; inset: 0; pointer-events: none; }
+.hud { position: fixed; inset: 0; pointer-events: none; z-index: 100; }
 .hud > * { pointer-events: auto; }
 .topbar { position: absolute; top: 12px; inset-inline: 12px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; pointer-events: none; }
 .tb-group { pointer-events: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 7px 12px; display: flex; align-items: center; gap: 8px; font-size: 14px; backdrop-filter: blur(8px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }

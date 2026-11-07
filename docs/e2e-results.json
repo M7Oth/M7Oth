@@ -1,0 +1,117 @@
+[
+  {
+    "name": "New player starts as a video editor in their room",
+    "ok": true,
+    "detail": "money 1500"
+  },
+  {
+    "name": "Accepting the offer adds it to active work",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Client requests executed in the timeline UI",
+    "ok": true,
+    "detail": "live check 100%"
+  },
+  {
+    "name": "Delivered project is accepted and paid",
+    "ok": true,
+    "detail": "+550 SAR, rating 5★"
+  },
+  {
+    "name": "Bought CPU upgrade and it shortens export time",
+    "ok": true,
+    "detail": "export 57 → 42 game minutes"
+  },
+  {
+    "name": "Working reduced energy",
+    "ok": true,
+    "detail": "89 → 84"
+  },
+  {
+    "name": "Took a break on the sofa (rest activity)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Invite code created",
+    "ok": true,
+    "detail": "YR3HBT"
+  },
+  {
+    "name": "Friend joined the same room from another browser",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Friend movement is synced to the host",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Found a two-task project for co-op",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Task assignment visible to both players",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Duplicate submission of a finished task is rejected by the server",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Joint project paid and split 50/50",
+    "ok": true,
+    "detail": "payout 880, friend got 440, host +440"
+  },
+  {
+    "name": "Advanced to Pro Freelancer from the Career panel",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "A new offer arrived for the contractor test",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hired a freelance contractor for a task",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Opened a studio (moved into the office)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hired the first employee",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Coordinator and project manager hired",
+    "ok": true,
+    "detail": "6 staff"
+  },
+  {
+    "name": "PM distributed one project across video and motion departments",
+    "ok": true,
+    "detail": "The coordinator accepted and forwarded to the PM | The PM assigned \"Motion ad for Rayhan Perfumes\" to Shahad | The PM assigned \"Edit Reel (15s)\" to Layan"
+  },
+  {
+    "name": "Server restarted and the save list loads",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Progress persisted across a full restart",
+    "ok": true,
+    "detail": "stage 4, 6 staff, 2 members"
+  }
+]

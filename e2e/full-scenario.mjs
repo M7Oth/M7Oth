@@ -179,7 +179,7 @@ async function main() {
     const money0 = (await state(A)).money;
     const energy0 = (await state(A)).players[(await G(A, () => window.__fls.useGame.getState().conn.you))].needs.energy;
     await A.click('[data-testid=submit-task]');
-    await waitFor(A, () => window.__fls.useGame.getState().state.projects.find((p) => p.status === 'active')?.tasks.every((t) => t.status === 'done') ?? true, null, 8000, 'task done');
+    await waitFor(A, () => window.__fls.useGame.getState().computerApp === 'desktop', null, 8000, 'task submitted');
     // a project may have several tasks: solve the rest the same way
     for (let k = 0; k < 4; k++) {
       const open = await G(A, () => { const g = window.__fls.useGame.getState(); const p = g.state.projects.find((x) => x.status === 'active'); return p?.tasks.find((t) => t.status !== 'done')?.id ?? null; });
@@ -318,10 +318,11 @@ async function main() {
     // contractor on a task
     await act(A, { type: 'devGrant', money: 30000 });
     let offer;
-    for (let i = 0; i < 60 && !offer; i++) { s = await state(A); offer = s.projects.find((p) => p.status === 'offer' && p.tasks.every((t) => t.specialty === 'video')); if (!offer) await sleep(400); }
+    for (let i = 0; i < 400 && !offer; i++) { s = await state(A); offer = s.projects.find((p) => p.status === 'offer' && p.tasks.every((t) => t.specialty === 'video')); if (!offer) await sleep(300); }
+    step('A new offer arrived for the contractor test', !!offer);
     await act(A, { type: 'accept', projectId: offer.id });
-    await A.click('[data-panel=projects]');
-    await A.click('[data-panel=projects]');
+    await waitFor(A, (id) => window.__fls.useGame.getState().state.projects.find((p) => p.id === id)?.status === 'active', offer.id, 5000, 'offer accepted');
+    await G(A, () => window.__fls.useGame.setState({ panel: 'projects' }));
     await A.waitForSelector('[data-testid=assign-select]');
     s = await state(A);
     const contractor = s.contractors.find((c) => c.specialty === 'video' && !c.taskId);
@@ -362,7 +363,9 @@ async function main() {
     for (const e of s.employees) await act(A, { type: 'raise', employeeId: e.id, accept: true }).catch(() => {});
     // run time forward until the PM distributes a cross-department project
     let multi = null;
-    for (let i = 0; i < 120 && !multi; i++) {
+    await act(A, { type: 'setSpeed', speed: 4 });
+    // staff work 08:00–20:00 game time; allow enough real time to pass a night at 4x
+    for (let i = 0; i < 700 && !multi; i++) {
       s = await state(A);
       multi = s.projects.find((p) => p.specialties.length > 1 && p.tasks.some((t) => t.assignee?.type === 'employee' && t.specialty === 'motion') && p.tasks.some((t) => t.assignee?.type === 'employee' && t.specialty === 'video'));
       if (!multi) await sleep(500);

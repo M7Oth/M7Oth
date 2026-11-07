@@ -851,7 +851,7 @@ export function fixedFurniture(s: Pick<GameState, 'location' | 'officeTier' | 'r
       { id: 'bed', kind: 'bed', x: size.w - 2, z: 0, w: 2, d: 3 },
       { id: 'kitchen', kind: 'kitchen', x: 0, z: size.d - 2, w: 1, d: 2 },
       { id: 'sofa', kind: 'sofa', x: Math.floor(size.w / 2) - 1, z: size.d - 1, w: 2, d: 1 },
-      { id: 'door', kind: 'door', x: size.w - 1, z: size.d - 1, w: 1, d: 1 },
+      { id: 'door', kind: 'door', x: 0, z: 2, w: 1, d: 1 },
     ];
   }
   const o = OFFICE_TIERS[s.officeTier];
@@ -859,7 +859,7 @@ export function fixedFurniture(s: Pick<GameState, 'location' | 'officeTier' | 'r
     { id: 'desk', kind: 'desk', x: 1, z: 0, w: 2, d: 1 },
     { id: 'kitchen', kind: 'coffeeBar', x: 0, z: o.d - 2, w: 1, d: 2 },
     { id: 'sofa', kind: 'sofa', x: 3, z: o.d - 1, w: 2, d: 1 },
-    { id: 'door', kind: 'door', x: o.w - 1, z: o.d - 1, w: 1, d: 1 },
+    { id: 'door', kind: 'door', x: 0, z: 2, w: 1, d: 1 },
     { id: 'meeting', kind: 'meeting', x: o.w - 4, z: 0, w: 3, d: 2 },
   ];
   const staffDesks = o.desks - 1;

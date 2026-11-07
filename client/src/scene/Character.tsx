@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Text } from '@react-three/drei';
+import { Html, RoundedBox } from '@react-three/drei';
 import type { Group } from 'three';
 import type { Appearance } from '@fls/shared';
 
@@ -123,11 +123,13 @@ export function Character({ appearance: a, anim, name, seed = 0, highlight, bubb
           )}
         </group>
       </group>
-      {name && (
-        <Text position={[0, 1.38, 0]} fontSize={0.12} color="#ffffff" outlineWidth={0.012} outlineColor="#1a1a1a" anchorX="center" anchorY="middle">{name}</Text>
-      )}
-      {bubble && (
-        <Text position={[0, 1.55, 0]} fontSize={0.16} anchorX="center" anchorY="middle">{bubble}</Text>
+      {(name || bubble) && (
+        <Html position={[0, 1.45, 0]} center distanceFactor={undefined} zIndexRange={[10, 0]} style={{ pointerEvents: 'none' }}>
+          <div className="char-label">
+            {bubble && <span className="char-bubble">{bubble}</span>}
+            {name && <span className="char-name">{name}</span>}
+          </div>
+        </Html>
       )}
     </group>
   );

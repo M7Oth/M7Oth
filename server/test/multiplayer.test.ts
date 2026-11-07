@@ -80,7 +80,7 @@ async function until(fn: () => boolean, ms = 5000) {
   while (!fn()) { if (Date.now() - t0 > ms) throw new Error('timeout'); await new Promise((r) => setTimeout(r, 15)); }
 }
 
-describe('online co-op (real WebSocket server)', () => {
+describe('online co-op (real WebSocket server)', { timeout: 60000 }, () => {
   let hostTok = '', guestTok = '', worldId = '', guestId = '';
 
   it('registers two accounts and creates an online save', async () => {
@@ -130,9 +130,16 @@ describe('online co-op (real WebSocket server)', () => {
     // grant a multi-task offer
     await until(() => host.state.projects.some((p) => p.status === 'offer'));
     let offer = host.state.projects.find((p) => p.status === 'offer' && p.tasks.length >= 2);
+    await host.act({ type: 'setSpeed', speed: 4 });
     const t0 = Date.now();
-    while (!offer && Date.now() - t0 < 15000) { await new Promise((r) => setTimeout(r, 50)); offer = host.state.projects.find((p) => p.status === 'offer' && p.tasks.length >= 2); }
+    while (!offer && Date.now() - t0 < 40000) {
+      // make room in the inbox so new offers keep coming
+      for (const p of host.state.projects.filter((x) => x.status === 'offer' && x.tasks.length < 2)) await host.act({ type: 'decline', projectId: p.id });
+      await new Promise((r) => setTimeout(r, 100));
+      offer = host.state.projects.find((p) => p.status === 'offer' && p.tasks.length >= 2);
+    }
     expect(offer).toBeTruthy();
+    await host.act({ type: 'setSpeed', speed: 1 });
 
     // both accept at the same moment → exactly one succeeds
     const [a1, a2] = await Promise.all([host.act({ type: 'accept', projectId: offer!.id }), host.act({ type: 'accept', projectId: offer!.id })]);

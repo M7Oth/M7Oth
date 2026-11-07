@@ -1,4 +1,4 @@
-import { videoOps, clipStarts, motionOps, graphicOps, sceneOps, type VideoDoc, type Requirement, type Task } from '../src';
+import { WORK_MODULES, videoOps, clipStarts, motionOps, graphicOps, sceneOps, type VideoDoc, type Requirement, type Task } from '../src';
 
 /** Solve a video task the way a player would, using only editor operations. */
 export function solveVideo(doc: VideoDoc, reqs: Requirement[]): VideoDoc {
@@ -8,8 +8,10 @@ export function solveVideo(doc: VideoDoc, reqs: Requirement[]): VideoDoc {
     const i = d.clips.findIndex((c) => c.mediaId === mediaId && src >= c.srcIn && src <= c.srcOut);
     return st[i] + (src - d.clips[i].srcIn);
   };
+  const done = (r: Requirement) => WORK_MODULES.video.check(d, r, reqs).ok;
   for (const r of reqs) {
     const p = r.params;
+    if (done(r)) continue;
     if (r.kind === 'removeClip') d = d.clips.filter((c) => c.mediaId === p.mediaId).reduce((acc, c) => videoOps.remove(acc, c.id), d);
     if (r.kind === 'removeRange') {
       d = videoOps.split(d, tlTime(p.mediaId, p.from));
@@ -30,6 +32,7 @@ export function solveVideo(doc: VideoDoc, reqs: Requirement[]): VideoDoc {
   }
   for (const r of reqs) {
     const p = r.params;
+    if (done(r)) continue;
     if (r.kind === 'addText') d = videoOps.addText(d, p.content.ar, p.from, p.to);
     if (r.kind === 'textColor') d = { ...d, texts: d.texts.map((t) => ({ ...t, color: p.color })) };
     if (r.kind === 'allTextColor') d = { ...d, texts: d.texts.map((t) => ({ ...t, color: p.color })) };
@@ -38,7 +41,7 @@ export function solveVideo(doc: VideoDoc, reqs: Requirement[]): VideoDoc {
     if (r.kind === 'grade') for (const c of d.clips.filter((c) => c.mediaId === p.mediaId)) d = videoOps.setClip(d, c.id, { grade: p.grade });
     if (r.kind === 'overlay') d = videoOps.addOverlay(d, p.mediaId, p.from, p.to);
   }
-  for (const r of reqs) if (r.kind === 'music') { d = videoOps.addAudio(d, r.params.trackId); d = videoOps.setAudio(d, d.audio[0].id, { volume: r.params.maxVolume }); }
+  for (const r of reqs) if (r.kind === 'music' && !done(r)) { d = { ...d, audio: [] }; d = videoOps.addAudio(d, r.params.trackId); d = videoOps.setAudio(d, d.audio[0].id, { volume: r.params.maxVolume }); }
   return d;
 }
 
@@ -97,7 +100,8 @@ export function solveScene(doc: any, reqs: Requirement[]) {
 }
 export function solveTask(t: Task) {
   if (t.specialty === 'video') return solveVideo(t.doc, t.requirements);
-  if (t.specialty === 'motion') return solveMotion(t.doc, t.requirements);
-  if (t.specialty === 'graphic') return solveGraphic(t.doc, t.requirements);
-  return solveScene(t.doc, t.requirements);
+  const open = t.requirements.filter((r) => !WORK_MODULES[t.specialty].check(t.doc, r, t.requirements).ok);
+  if (t.specialty === 'motion') return solveMotion(t.doc, open);
+  if (t.specialty === 'graphic') return solveGraphic(t.doc, open);
+  return solveScene(t.doc, open);
 }

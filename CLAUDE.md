@@ -5,6 +5,7 @@ Working title "HEIST RESPONSE — Police vs. Robbers" (provisional; title lives 
 Project owner communicates in **Saudi Arabic** — reply in clear Saudi Arabic. Code, comments and docs are in English.
 
 ## Read first
+0. On Windows for the first time: `Docs/LOCAL_SETUP_WINDOWS.md`.
 1. `Docs/PROJECT_STATUS.md` — what exists, what is verified, what is placeholder, known risks, next tasks.
 2. `Docs/DEVELOPMENT_ROADMAP.md` — milestones and tracks.
 3. The design doc relevant to your task (`Docs/*.md`).

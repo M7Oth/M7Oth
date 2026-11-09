@@ -1,0 +1,304 @@
+﻿Key,ar,en
+CCTV.Lobby,الردهة,Lobby
+Camera.FirstPerson,منظور الشخص الأول,First person
+Camera.ThirdPerson,منظور الشخص الثالث,Third person
+Deal.Accepted.1,تم الاتفاق: رهينة مقابل هدنة,Deal: hostage for a truce
+Deal.Accepted.2,تم الاتفاق: رهينتان مقابل سيارة,Deal: two hostages for a car
+Deal.Accepted.3,تم الاتفاق: رهينة مقابل وقت,Deal: hostage for time
+Deal.Accepted.4,اللصوص استسلموا,The robbers surrendered
+Deal.Accepted.5,تم الاتفاق على وقف إطلاق النار,Ceasefire agreed
+Deal.Desc.1,نطلق رهينة واحدة، والشرطة تنسحب من محيط البنك وتوقف النار 45 ثانية,Release 1 hostage; police pull back from the bank and hold fire for 45s
+Deal.Desc.2,نطلق رهينتين، والشرطة توصل سيارة هروب للموقع المحدد,Release 2 hostages; police deliver a getaway car
+Deal.Desc.3,نطلق رهينة واحدة مقابل تمديد الوقت 60 ثانية,Release 1 hostage for 60 extra seconds on the clock
+Deal.Desc.4,سلّموا أنفسكم الآن وتنتهي العملية دون مواجهة,Give yourselves up now and end this without a fight
+Deal.Desc.5,هدنة متبادلة لمدة 25 ثانية بلا شروط أخرى,"Mutual 25-second ceasefire, no other terms"
+Deal.Name.1,رهينة مقابل هدنة,Hostage for a truce
+Deal.Name.2,رهينتان مقابل سيارة,Two hostages for a car
+Deal.Name.3,رهينة مقابل وقت,Hostage for time
+Deal.Name.4,شروط الاستسلام,Surrender terms
+Deal.Name.5,وقف إطلاق نار قصير,Short ceasefire
+Deal.Proposed.1,{0}: نعرض رهينة مقابل هدنة,{0}: offering a hostage for a truce
+Deal.Proposed.2,{0}: نعرض رهينتين مقابل سيارة,{0}: two hostages for a car
+Deal.Proposed.3,{0}: نعرض رهينة مقابل وقت إضافي,{0}: a hostage for more time
+Deal.Proposed.4,{0}: الشرطة تعرض شروط الاستسلام,{0}: police offer surrender terms
+Deal.Proposed.5,{0}: طلب وقف إطلاق نار,{0}: requesting a ceasefire
+Error.BadCode,الرمز يجب أن يكون 6 أحرف,Codes are 6 characters
+Error.ConnectionLost,انقطع الاتصال بالخادم,Connection to the server was lost
+Error.CreateFailed,تعذّر إنشاء المباراة,Could not create the match
+Error.JoinFailed,تعذّر الانضمام للمباراة,Could not join the match
+Error.NetworkGeneric,حدث خطأ في الشبكة,A network error occurred
+Error.NoOnline,خدمة الاتصال غير متاحة,Online service unavailable
+Error.RoomNotFound,لم يتم العثور على الغرفة,Room not found
+Error.SearchFailed,تعذّر البحث عن مباريات,Could not search for matches
+Error.SessionFull,المباراة ممتلئة,The match is full
+Error.TravelFailed,تعذّر تحميل المباراة,Could not load the match
+Game.Subtitle,الشرطة ضد اللصوص — مدينة واحدة، خطة واحدة، لا مجال للخطأ,"Police vs. Robbers - one city, one plan, no second chances"
+Game.Title,استجابة السطو,HEIST RESPONSE
+HUD.Alarm,إنذار,ALARM
+HUD.AlarmActive,إنذار البنك يعمل — الشرطة في الطريق,BANK ALARM - POLICE RESPONDING
+HUD.AlarmDispatchIn,إنذار! توجيه الشرطة خلال {0},ALARM! Police dispatch in {0}
+HUD.Arrested,تم القبض عليك — قد يحررك فريقك من الزنزانة,Arrested - your crew may break you out
+HUD.CCTVHint,كاميرات المراقبة — زر الفأرة للتبديل، Esc للخروج,"CCTV - mouse buttons to cycle, Esc to exit"
+HUD.CameraHint,[{0}] تبديل الكاميرا — {1},[{0}] Switch camera - {1}
+HUD.CarryingBag,تحمل كيس مال,Carrying a money bag
+HUD.DispatchBanner,بلاغ طارئ: سطو مسلح على البنك المركزي,DISPATCH: Armed robbery at Central Bank
+HUD.Downed,أنت مصاب — انتظر زميلاً لإسعافك ({0}),You are down - wait for a teammate ({0})
+HUD.Hostages,الرهائن: {0}  •  المحررون: {1},Hostages: {0}  -  Rescued: {1}
+HUD.Loot,المؤمَّن {0} / الهدف {1},Secured {0} / Target {1}
+HUD.MaskToArm,البس القناع لاستخدام السلاح,Mask up to use weapons
+HUD.Reloading,إعادة تعبئة…,Reloading...
+HUD.Spectating,وضع المشاهدة — زر الفأرة للتبديل بين الزملاء,Spectating - mouse buttons to switch teammate
+HUD.SpectatingEscaped,هربت بنجاح! تشاهد فريقك الآن,You escaped! Watching your crew
+HUD.Suspicion,مستوى الشبهة,Suspicion
+HUD.Truce,هدنة سارية — {0},Truce active - {0}
+Interact.AlreadyCarrying,تحمل كيساً بالفعل,Already carrying a bag
+Interact.Arrest,اعتقال,Arrest
+Interact.BagMoney,تعبئة المال ({0} متبقٍ),Bag the money ({0} left)
+Interact.Breach,اقتحام الباب,Breach door
+Interact.CloseDoor,إغلاق الباب,Close door
+Interact.CrateEmpty,لا يوجد شيء آخر,Nothing left
+Interact.DoorBusy,زميلك يفتح هذا القفل,A teammate is picking this lock
+Interact.Drive,القيادة,Drive
+Interact.Evacuate,إخلاء المدني,Evacuate civilian
+Interact.FreeHostage,تحرير الرهينة,Free hostage
+Interact.Locked,مقفل,Locked
+Interact.Lockpick,فتح القفل بالمفك,Pick the lock
+Interact.LoopCCTV,تكرار تسجيل الكاميرات,Loop the CCTV feeds
+Interact.MaskUpFirst,البس القناع أولاً,Mask up first
+Interact.NeedLockpick,تحتاج أداة فتح أقفال,You need a lockpick
+Interact.NoZipties,نفدت الأصفاد,Out of restraints
+Interact.OpenDoor,فتح الباب,Open door
+Interact.PickUpBag,حمل الكيس,Pick up bag
+Interact.RecoverBag,استرداد المال,Recover the money
+Interact.Revive,إسعاف الزميل,Revive teammate
+Interact.Ride,الركوب,Get in
+Interact.TakeEquipment,أخذ المعدات,Take equipment
+Interact.TakeHostage,احتجاز كرهينة,Take hostage
+Interact.TakeKeycard,أخذ بطاقة الخزنة,Take the vault keycard
+Interact.UseKeycard,استخدام البطاقة,Use keycard
+Interact.VaultCode,إدخال رمز الخزنة,Enter vault code
+Interact.VaultDisableDrill,تعطيل المثقاب,Disable the drill
+Interact.VaultFixDrill,إصلاح المثقاب,Fix the drill
+Interact.VaultNeedTool,تحتاج بطاقة المدير أو المثقاب الحراري,Needs the manager keycard or a thermal drill
+Interact.VaultPlaceDrill,تركيب المثقاب الحراري,Place thermal drill
+Interact.VehicleFull,السيارة ممتلئة,Vehicle is full
+Interact.VehicleLocked,سيارة شرطة مقفلة,Locked police vehicle
+Interact.WatchCCTV,مشاهدة الكاميرات,Watch CCTV
+Item.Lockpick,مفك أقفال,Lockpick
+Item.MedKit,حقيبة إسعاف,Med kit
+Item.SmokeGrenade,قنبلة دخان,Smoke grenade
+Item.SpikeStrip,شريط مسامير,Spike strip
+Item.ThermalDrill,مثقاب حراري,Thermal drill
+Item.VaultKeycard,بطاقة الخزنة,Vault keycard
+Item.Zipties,أصفاد,Restraints
+Key.Aim,تصويب,Aim
+Key.Brake,فرامل,Brake
+Key.Crouch,انحناء,Crouch
+Key.DropBag,رمي الكيس,Drop/throw bag
+Key.Fire,إطلاق,Fire
+Key.Gadget,أداة,Gadget
+Key.Handbrake,فرامل اليد,Handbrake
+Key.Interact,تفاعل,Interact
+Key.Jump,قفز,Jump
+Key.Look,النظر,Look
+Key.Menu,القائمة,Menu
+Key.MoveBack,تراجع,Move back
+Key.MoveForward,تقدم,Move forward
+Key.MoveLeft,يسار,Move left
+Key.MoveRight,يمين,Move right
+Key.Negotiate,التفاوض,Negotiate
+Key.Ping,إشارة تكتيكية,Tactical ping
+Key.Reload,تعبئة,Reload
+Key.Scoreboard,النتائج,Scoreboard
+Key.Shout,صراخ/تخويف,Shout
+Key.Siren,صفارة الإنذار,Siren
+Key.SpectateNext,المشاهد التالي,Next view
+Key.SpectatePrev,المشاهد السابق,Previous view
+Key.Sprint,ركض,Sprint
+Key.SteerLeft,توجيه يسار,Steer left
+Key.SteerRight,توجيه يمين,Steer right
+Key.Surrender,استسلام,Surrender
+Key.SwapShoulder,تبديل الكتف,Swap shoulder
+Key.Throttle,تسارع,Throttle
+Key.ToggleCamera,تبديل الكاميرا,Toggle camera
+Key.ToggleMask,القناع,Mask
+Key.Trunk,صندوق السيارة,Trunk
+Key.VehicleExit,النزول,Exit vehicle
+Lang.Arabic,العربية,العربية
+Lang.English,English,English
+Lobby.JoinTeam,انضم للفريق,Join team
+Lobby.NotReady,إلغاء الجاهزية,Not ready
+Lobby.PublicMatch,مباراة عامة,Public match
+Lobby.Ready,جاهز,Ready
+Lobby.ReadyTag,جاهز,READY
+Lobby.RoomCode,رمز الغرفة: {0} — شاركه مع أصدقائك,Room code: {0} - share it with friends
+Lobby.Starting,تبدأ المباراة خلال {0},Match starts in {0}
+Lobby.TeamUnbalanced,لا يمكن الانتقال — الفرق ستصبح غير متوازنة,Can't switch - teams would be unbalanced
+Lobby.Tip,نصيحة: الاقتراب الهادئ يمنحكم وقتاً أطول قبل وصول الشرطة,Tip: a quiet approach buys more time before police arrive
+Lobby.Title,الاستعداد للمهمة,Mission lobby
+Lobby.WaitingReady,بانتظار جاهزية اللاعبين…,Waiting for players to ready up...
+Lockpick.Hint,حرّك الفأرة لإيجاد النقطة — اضغط الزر الأيسر للشد — Esc للإلغاء,Move mouse to find the spot - hold LMB for tension - Esc to cancel
+Lockpick.Picks,المفكات المتبقية: {0},Picks left: {0}
+Lockpick.Title,فتح القفل,Lockpicking
+Menu.Back,رجوع,Back
+Menu.Browse,قائمة الخوادم,Server browser
+Menu.Close,إغلاق,Close
+Menu.CodeHint,رمز الغرفة,Room code
+Menu.Creating,جارٍ إنشاء المباراة…,Creating match...
+Menu.HostPrivate,إنشاء غرفة خاصة,Create private room
+Menu.HostPublic,إنشاء مباراة عامة,Host public match
+Menu.Join,دخول,Join
+Menu.JoinCode,دخول بالرمز,Join by code
+Menu.Joining,جارٍ الانضمام…,Joining...
+Menu.Leave,مغادرة المباراة,Leave match
+Menu.NameHint,اسمك في اللعبة,Your player name
+Menu.NoServers,لا توجد مباريات متاحة — جرّب اللعب السريع لإنشاء واحدة,No matches found - Quick Play will host one
+Menu.OnlineService,خدمة الاتصال: {0},Online service: {0}
+Menu.QuickPlay,لعب سريع,Quick Play
+Menu.Quit,خروج من اللعبة,Quit game
+Menu.Refresh,تحديث,Refresh
+Menu.Resume,متابعة,Resume
+Menu.Searching,جارٍ البحث عن مباراة…,Searching for a match...
+Menu.Settings,الإعدادات,Settings
+Menu.Title,القائمة,Menu
+Menu.Training,تدريب منفرد,Solo training
+NegResult.1,خط التفاوض مغلق,The line is closed
+NegResult.2,هناك عرض قيد الانتظار,An offer is already pending
+NegResult.3,لا يوجد عرض للرد عليه,No offer to answer
+NegResult.4,انتظر قبل تقديم عرض جديد,Wait before making another offer
+NegResult.5,هذا العرض ليس لفريقك,Your team cannot offer this
+NegResult.6,لا يوجد رهائن كافيين,Not enough hostages
+NegResult.7,وصلتم للحد الأقصى من الصفقات,Deal limit reached
+NegResult.8,استُنفد وقت الهدنات المسموح,Truce time budget exhausted
+NegResult.9,لا يمكنك الرد على عرضك,You cannot answer your own offer
+Negotiation.Accept,قبول,Accept
+Negotiation.Expired,انتهت مهلة العرض,The offer expired
+Negotiation.LineClosed,أُغلق خط التفاوض,Negotiation line closed
+Negotiation.LineOpen,خط التفاوض مفتوح (N),Negotiation line open (N)
+Negotiation.NotAvailable,لا يوجد خط تفاوض حالياً,No negotiation line right now
+Negotiation.Pending,{0} يعرضون: {1} — الرد خلال {2},{0} propose: {1} - answer within {2}
+Negotiation.Propose,اقتراح,Propose
+Negotiation.Reject,رفض,Reject
+Negotiation.Rejected,رفض {0} العرض,{0} rejected the offer
+Negotiation.Status,الرهائن: {0}  •  الصفقات: {1}/{2},Hostages: {0}  -  Deals: {1}/{2}
+Negotiation.Title,خط التفاوض,Negotiation line
+Negotiation.TruceBrokenPolice,الشرطة خرقت الهدنة!,Police broke the truce!
+Negotiation.TruceBrokenRobbers,اللصوص خرقوا الهدنة!,Robbers broke the truce!
+Notify.AlarmPolice,إنذار سطو في البنك المركزي!,Robbery alarm at Central Bank!
+Notify.AlarmRobbers,انطلق الإنذار! الشرطة قادمة,The alarm is ringing! Police are coming
+Notify.BagRecovered,{0} استرد كيس مال,{0} recovered a money bag
+Notify.Breakout,هروب من الزنزانة!,Jailbreak!
+Notify.CamerasLooped,الكاميرات معطلة الآن,Cameras are looped
+Notify.DrillDisabled,تم تعطيل المثقاب,The drill was disabled
+Notify.DrillStarted,المثقاب يعمل — احموه,Drill running - protect it
+Notify.HostageTaken,تم احتجاز رهينة,A hostage has been taken
+Notify.InfiltrationPolice,الدوريات بدأت — راقب الحي,Patrols are live - watch the district
+Notify.InfiltrationRobbers,البنك مفتوح — لا تلفت الانتباه,The bank is open - stay low-key
+Notify.PoliceEnRoute,الشرطة وُجّهت إلى البنك,Police have been dispatched
+Notify.PoliceIntelZones,معلومات استخباراتية: تم تحديد نقاط الهروب المحتملة,Intel: likely escape points identified
+Notify.PoliceRespawning,ستعود إلى المركز خلال {0} ثانية,Back at the station in {0}s
+Notify.PrepPolice,المناوبة بدأت — استعد للدورية,Shift started - get ready to patrol
+Notify.PrepRobbers,الخطة جاهزة؟ المعدات في شاحنة الفريق,Ready? Your gear is in the crew van
+Notify.RobberArrested,تم اعتقال {0},{0} was arrested
+Notify.RobberEscaped,{0} هرب!,{0} escaped!
+Notify.RobberSurrendering,{0} يستسلم,{0} is surrendering
+Notify.SuspicionHigh,انتبه! الشبهات حولكم تتزايد,Careful! Suspicion is rising
+Notify.SuspiciousReport,بلاغ: أشخاص مريبون قرب البنك المركزي,Report: suspicious persons near Central Bank
+Notify.TeammateDown,{0} مصاب!,{0} is down!
+Notify.TiresBlown,الإطارات انفجرت!,Tires blown!
+Notify.TrunkRecovered,{0} استرد المال من صندوق السيارة,{0} recovered loot from a trunk
+Notify.VaultOpened,الخزنة فُتحت!,The vault is open!
+Notify.VehicleDelivered,سيارة الهروب وصلت إلى الموقع المتفق عليه,The getaway car has been delivered
+Notify.VehicleDisabled,سيارة تعطلت — أكملوا على الأقدام,A vehicle is disabled - continue on foot
+Notify.VehicleIncoming,سيارة الهروب ستصل خلال 20 ثانية,Getaway car arriving in 20 seconds
+Obj.PoliceAwaitDispatch,بلاغ إنذار — بانتظار التوجيه,Alarm reported - awaiting dispatch
+Obj.PolicePatrol,سيّر دوريات في الحي وراقب أي نشاط مريب,Patrol the district and watch for suspicious activity
+Obj.PolicePrep,استعد في المركز: المعدات، السيارات، والكاميرات,"Gear up at the station: equipment, cruisers, CCTV"
+Obj.PoliceRespond,توجّه إلى البنك، احمِ الرهائن، وامنع الهروب,"Respond to the bank, protect hostages, stop the escape"
+Obj.RobberExtract,أوصل الكيس إلى نقطة الهروب,Get the bag to an extraction point
+Obj.RobberLoot,اجمع أكياس المال,Bag the money
+Obj.RobberPrep,خذ المعدات من شاحنة الفريق واختر طريقة الاقتراب من البنك,Grab gear from the van and choose your approach to the bank
+Obj.RobberVault,ادخل البنك وافتح الخزنة — بهدوء أو بالقوة,Get into the bank and open the vault - quietly or loudly
+Phase.Ended,انتهت الجولة,Match over
+Phase.Infiltration,التسلل,Infiltration
+Phase.Preparation,التحضير,Preparation
+Phase.Response,الاستجابة,Response
+Phase.Waiting,بانتظار اللاعبين,Waiting for players
+Reason.0,,
+Reason.1,اللصوص هربوا بالمال المطلوب,The crew escaped with the target loot
+Reason.2,انتهى الوقت واللصوص أمّنوا المال,Time ran out with the loot secured
+Reason.3,انتهى الوقت دون تأمين المال,Time ran out before the loot was secured
+Reason.4,تم تحييد جميع اللصوص,Every robber was neutralised
+Reason.5,الشرطة استردت ما يكفي من المال,Police recovered enough of the money
+Reason.6,اللصوص استسلموا,The robbers surrendered
+Reason.7,فريق الشرطة غادر المباراة,The police team left
+Reason.8,فريق اللصوص غادر المباراة,The robbers left
+Reason.9,تم التخلي عن المباراة,The match was abandoned
+Result.Draw,تعادل,DRAW
+Result.LootLine,المؤمَّن {0} من {1}  •  المسترد {2},Secured {0} of {1}  -  Recovered {2}
+Result.PoliceWin,انتصار الشرطة,POLICE WIN
+Result.Rematch,مباراة جديدة,Rematch
+Result.RobbersWin,انتصار اللصوص,ROBBERS WIN
+Result.Voted,تم التصويت,Voted
+Score.Arrests,اعتقالات,Arrests
+Score.Hostages,رهائن,Hostages
+Score.Loot,المال,Loot
+Score.Ping,الاستجابة,Ping
+Score.Player,اللاعب,Player
+Score.Score,النقاط,Score
+Score.StatusArrested,معتقل,arrested
+Score.StatusEscaped,هارب,escaped
+Score.Takedowns,إسقاط,Takedowns
+Score.Title,لوحة النتائج,Scoreboard
+Settings.AimSensitivity,حساسية التصويب,Aim sensitivity
+Settings.Apply,تطبيق,Apply
+Settings.Borderless,بلا حدود,Borderless
+Settings.CameraDistance,مسافة الكاميرا,Camera distance
+Settings.CameraShake,اهتزاز الكاميرا,Camera shake
+Settings.Colorblind,ألوان مناسبة لعمى الألوان,Colour-blind team colours
+Settings.Defaults,الافتراضي,Defaults
+Settings.Effects,المؤثرات,Effects
+Settings.Epic,فائقة,Epic
+Settings.FOVFirst,مجال الرؤية (الشخص الأول),Field of view (first person)
+Settings.FOVThird,مجال الرؤية (الشخص الثالث),Field of view (third person)
+Settings.FrameCap,حد الإطارات,Frame rate cap
+Settings.Fullscreen,ملء الشاشة,Fullscreen
+Settings.GraphicsNote,تُطبَّق الإعدادات فوراً. الجودة الفائقة تتطلب بطاقة رسوميات قوية.,Settings apply immediately. Epic needs a strong GPU.
+Settings.HUDScale,حجم الواجهة,HUD scale
+Settings.High,عالية,High
+Settings.InvertY,عكس المحور الرأسي,Invert Y axis
+Settings.KeyBindings,أزرار التحكم,Key bindings
+Settings.Language,اللغة,Language
+Settings.LanguageNote,تغيير اللغة يُطبَّق بالكامل عند العودة للقائمة الرئيسية,Language changes fully apply after returning to the main menu
+Settings.Left,يسار,Left
+Settings.Low,منخفضة,Low
+Settings.Master,الصوت العام,Master volume
+Settings.Medium,متوسطة,Medium
+Settings.Perspective,منظور الكاميرا,Camera perspective
+Settings.PressKey,اضغط زراً…,Press a key...
+Settings.Quality,جودة الرسوميات,Graphics quality
+Settings.ResolutionScale,دقة العرض,Resolution scale
+Settings.Right,يمين,Right
+Settings.Sensitivity,حساسية الفأرة,Mouse sensitivity
+Settings.Shoulder,الكتف,Shoulder
+Settings.TabAudio,الصوت,Audio
+Settings.TabControls,التحكم,Controls
+Settings.TabGameplay,اللعب,Gameplay
+Settings.TabGraphics,الرسوميات,Graphics
+Settings.TabInterface,الواجهة,Interface
+Settings.Title,الإعدادات,Settings
+Settings.ToggleAim,التصويب بالضغط مرة,Toggle aim
+Settings.Unlimited,بلا حد,Unlimited
+Settings.VSync,المزامنة الرأسية,V-Sync
+Settings.Voice,المحادثة الصوتية,Voice chat
+Settings.WindowMode,وضع النافذة,Window mode
+Settings.Windowed,نافذة,Windowed
+Team.Police,الشرطة,Police
+Team.PoliceDesc,استجب للبلاغات، فاوض، أنقذ الرهائن، واعتقل المشتبهين.,"Respond, negotiate, rescue hostages and arrest suspects."
+Team.Robbers,اللصوص,Robbers
+Team.RobbersDesc,خطّط، تسلل، افتح الخزنة، واهرب بالغنيمة.,"Plan, infiltrate, crack the vault and escape with the loot."
+Zone.Generic,نقطة هروب,Extraction
+Zone.carpark,سطح المواقف,Car park roof
+Zone.harbor,قارب الميناء,Harbor boat
+Zone.onramp,مدخل الطريق الدائري,Ring road on-ramp
+Zone.rail,نفق السكة,Rail tunnel

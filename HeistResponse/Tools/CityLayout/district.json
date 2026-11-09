@@ -1,0 +1,544 @@
+{
+  "name": "Al-Waha Financial District",
+  "units": "meters",
+  "bounds": {
+    "x": [
+      -80,
+      1280
+    ],
+    "y": [
+      -80,
+      1130
+    ]
+  },
+  "boundaries": [
+    {
+      "type": "highway_elevated",
+      "rect": [
+        -80,
+        1060,
+        1280,
+        1130
+      ],
+      "note": "Elevated ring road - visual boundary, on-ramp is an extraction point"
+    },
+    {
+      "type": "harbor_water",
+      "rect": [
+        -80,
+        -80,
+        1280,
+        -20
+      ],
+      "note": "Harbor edge with sea wall"
+    },
+    {
+      "type": "construction_wall",
+      "rect": [
+        1240,
+        -20,
+        1280,
+        1060
+      ],
+      "note": "Metro construction site hoardings + cranes"
+    },
+    {
+      "type": "rail_cutting",
+      "rect": [
+        -80,
+        -20,
+        -40,
+        1060
+      ],
+      "note": "Sunken rail line with fences"
+    }
+  ],
+  "roads": {
+    "avenues_x": [
+      {
+        "x": 0,
+        "width": 16,
+        "name": "Corniche Road"
+      },
+      {
+        "x": 300,
+        "width": 12,
+        "name": "Souq Street"
+      },
+      {
+        "x": 600,
+        "width": 24,
+        "name": "King Fahd Avenue",
+        "boulevard": true
+      },
+      {
+        "x": 900,
+        "width": 12,
+        "name": "Olaya Lane"
+      },
+      {
+        "x": 1200,
+        "width": 16,
+        "name": "Eastern Service Road"
+      }
+    ],
+    "streets_y": [
+      {
+        "y": 0,
+        "width": 16,
+        "name": "Harbor Road"
+      },
+      {
+        "y": 250,
+        "width": 12,
+        "name": "Market Street"
+      },
+      {
+        "y": 500,
+        "width": 20,
+        "name": "Tahlia Street"
+      },
+      {
+        "y": 750,
+        "width": 12,
+        "name": "Garden Street"
+      },
+      {
+        "y": 1000,
+        "width": 16,
+        "name": "Ring Road Frontage"
+      }
+    ],
+    "alleys": [
+      {
+        "from": [
+          150,
+          250
+        ],
+        "to": [
+          150,
+          500
+        ],
+        "width": 6,
+        "name": "Spice Alley"
+      },
+      {
+        "from": [
+          450,
+          500
+        ],
+        "to": [
+          450,
+          750
+        ],
+        "width": 6,
+        "name": "Bank service alley"
+      },
+      {
+        "from": [
+          750,
+          750
+        ],
+        "to": [
+          750,
+          1000
+        ],
+        "width": 6,
+        "name": "Garage alley"
+      },
+      {
+        "from": [
+          900,
+          375
+        ],
+        "to": [
+          1200,
+          375
+        ],
+        "width": 6,
+        "name": "Back lanes"
+      },
+      {
+        "from": [
+          300,
+          875
+        ],
+        "to": [
+          600,
+          875
+        ],
+        "width": 6,
+        "name": "Residential mews"
+      }
+    ]
+  },
+  "locations": [
+    {
+      "id": "bank",
+      "type": "bank",
+      "name": "Central Bank of Al-Waha",
+      "rect": [
+        462,
+        530,
+        584,
+        690
+      ],
+      "floors": 4,
+      "entrances": [
+        [
+          584,
+          610,
+          "main"
+        ],
+        [
+          462,
+          650,
+          "rear_service"
+        ],
+        [
+          523,
+          690,
+          "employee"
+        ]
+      ]
+    },
+    {
+      "id": "plaza",
+      "type": "plaza",
+      "name": "Tahlia Plaza",
+      "rect": [
+        614,
+        520,
+        780,
+        640
+      ]
+    },
+    {
+      "id": "police",
+      "type": "police_station",
+      "name": "District Police HQ",
+      "rect": [
+        920,
+        30,
+        1180,
+        220
+      ],
+      "floors": 3,
+      "garage": [
+        1100,
+        40,
+        1180,
+        120
+      ]
+    },
+    {
+      "id": "safehouse",
+      "type": "garage",
+      "name": "Crew garage (robber spawn)",
+      "rect": [
+        30,
+        780,
+        170,
+        900
+      ]
+    },
+    {
+      "id": "parking",
+      "type": "parking_structure",
+      "name": "Olaya Multi-storey Car Park",
+      "rect": [
+        770,
+        770,
+        880,
+        980
+      ],
+      "floors": 5
+    },
+    {
+      "id": "cafes",
+      "type": "retail_row",
+      "name": "Cafe row",
+      "rect": [
+        320,
+        520,
+        440,
+        600
+      ]
+    },
+    {
+      "id": "mall",
+      "type": "retail",
+      "name": "Souq Arcade",
+      "rect": [
+        320,
+        270,
+        580,
+        480
+      ],
+      "floors": 3
+    },
+    {
+      "id": "towers",
+      "type": "office",
+      "name": "Financial towers",
+      "rect": [
+        620,
+        270,
+        880,
+        480
+      ],
+      "floors": 22
+    },
+    {
+      "id": "warehouses",
+      "type": "warehouse",
+      "name": "Harbor warehouses",
+      "rect": [
+        20,
+        20,
+        280,
+        230
+      ]
+    },
+    {
+      "id": "residential_n",
+      "type": "residential",
+      "name": "Garden apartments",
+      "rect": [
+        320,
+        770,
+        580,
+        868
+      ],
+      "floors": 6
+    },
+    {
+      "id": "residential_n2",
+      "type": "residential",
+      "name": "Garden townhouses",
+      "rect": [
+        320,
+        882,
+        580,
+        980
+      ],
+      "floors": 3
+    },
+    {
+      "id": "residential_e",
+      "type": "residential",
+      "name": "East apartments",
+      "rect": [
+        920,
+        520,
+        1180,
+        730
+      ],
+      "floors": 8
+    },
+    {
+      "id": "hotel",
+      "type": "hotel",
+      "name": "Waha Grand Hotel",
+      "rect": [
+        620,
+        30,
+        880,
+        230
+      ],
+      "floors": 14
+    },
+    {
+      "id": "market",
+      "type": "market",
+      "name": "Old market",
+      "rect": [
+        20,
+        270,
+        142,
+        480
+      ]
+    },
+    {
+      "id": "spice_souq",
+      "type": "market",
+      "name": "Spice souq stalls",
+      "rect": [
+        158,
+        270,
+        280,
+        480
+      ]
+    },
+    {
+      "id": "school",
+      "type": "civic",
+      "name": "Community centre",
+      "rect": [
+        20,
+        520,
+        280,
+        730
+      ]
+    },
+    {
+      "id": "fuel",
+      "type": "service",
+      "name": "Fuel station",
+      "rect": [
+        920,
+        770,
+        1050,
+        860
+      ]
+    },
+    {
+      "id": "offices_se",
+      "type": "office",
+      "name": "Business park South",
+      "rect": [
+        920,
+        270,
+        1180,
+        368
+      ],
+      "floors": 7
+    },
+    {
+      "id": "offices_se2",
+      "type": "office",
+      "name": "Business park North",
+      "rect": [
+        920,
+        382,
+        1180,
+        480
+      ],
+      "floors": 5
+    },
+    {
+      "id": "mixed_ne",
+      "type": "mixed",
+      "name": "Northeast mixed-use",
+      "rect": [
+        1060,
+        770,
+        1180,
+        980
+      ],
+      "floors": 5
+    },
+    {
+      "id": "mixed_s",
+      "type": "mixed",
+      "name": "Harbor offices",
+      "rect": [
+        320,
+        30,
+        580,
+        230
+      ],
+      "floors": 6
+    }
+  ],
+  "spawns": {
+    "police": [
+      [
+        1000,
+        120
+      ],
+      [
+        1020,
+        140
+      ],
+      [
+        1040,
+        120
+      ],
+      [
+        1060,
+        140
+      ]
+    ],
+    "police_respawn": [
+      [
+        1080,
+        180
+      ],
+      [
+        1100,
+        180
+      ]
+    ],
+    "robbers": [
+      [
+        80,
+        830
+      ],
+      [
+        100,
+        830
+      ],
+      [
+        120,
+        830
+      ],
+      [
+        140,
+        830
+      ]
+    ],
+    "holding_cell": [
+      [
+        960,
+        190
+      ]
+    ]
+  },
+  "extraction_zones": [
+    {
+      "id": "harbor",
+      "pos": [
+        40,
+        -5
+      ],
+      "name": "Harbor boat",
+      "vehicles": true
+    },
+    {
+      "id": "onramp",
+      "pos": [
+        1190,
+        1040
+      ],
+      "name": "Ring road on-ramp",
+      "vehicles": true
+    },
+    {
+      "id": "carpark",
+      "pos": [
+        825,
+        990
+      ],
+      "name": "Car park roof",
+      "vehicles": true
+    },
+    {
+      "id": "rail",
+      "pos": [
+        -30,
+        560
+      ],
+      "name": "Rail cutting tunnel",
+      "vehicles": false
+    }
+  ],
+  "tuning": {
+    "car_speed_mps": 16.7,
+    "pursuit_speed_mps": 22.0,
+    "run_speed_mps": 6.2,
+    "carry_speed_mps": 3.0,
+    "dispatch_delay_s": 12,
+    "min_response_window_s": 240
+  }
+}

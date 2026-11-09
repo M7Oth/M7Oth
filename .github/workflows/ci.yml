@@ -1,0 +1,21 @@
+name: HeistResponse CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core-rules:
+    name: Core rules tests + data validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & run engine-independent rule tests (ASan/UBSan, -Werror)
+        run: |
+          cmake -S HeistResponse/Tests/CoreRules -B build/core -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build/core -j
+          ctest --test-dir build/core --output-on-failure
+      - name: Validate localization table
+        run: python3 HeistResponse/Tools/validate_strings.py
+      - name: Validate district layout pacing
+        run: python3 HeistResponse/Tools/CityLayout/validate_layout.py

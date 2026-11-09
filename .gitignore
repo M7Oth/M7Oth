@@ -1,0 +1,19 @@
+# Unreal Engine
+HeistResponse/Binaries/
+HeistResponse/Intermediate/
+HeistResponse/Saved/
+HeistResponse/DerivedDataCache/
+HeistResponse/Build/
+HeistResponse/Plugins/*/Binaries/
+HeistResponse/Plugins/*/Intermediate/
+HeistResponse/.vs/
+HeistResponse/*.sln
+HeistResponse/*.VC.db
+HeistResponse/*.opensdf
+HeistResponse/*.sdf
+HeistResponse/.idea/
+*.suo
+*.pdb
+# Local builds
+build/
+__pycache__/
